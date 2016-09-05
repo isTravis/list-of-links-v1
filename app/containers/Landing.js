@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 import {getLoginData} from '../actions/app';
 import UserPreview from '../components/UserPreview';
 
-export const Home = React.createClass({
+export const Landing = React.createClass({
 
   statics: {
     readyOnActions: function(dispatch) {
@@ -17,7 +17,7 @@ export const Home = React.createClass({
 
   componentDidMount() {
     // Need to check here so that getLoginData doesn't make a fetch twice
-    Home.readyOnActions(this.props.dispatch);
+    Landing.readyOnActions(this.props.dispatch);
   },
 
   render() {
@@ -25,7 +25,7 @@ export const Home = React.createClass({
     const following = user.following || [];
     return (
       <div>
-        <Helmet title='Home' />
+        <Helmet title='Landing' />
         <h2>{user.username}</h2>
         <hr/>
 
@@ -44,4 +44,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(Home);
+export default connect(mapStateToProps)(Landing);
