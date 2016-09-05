@@ -8,14 +8,13 @@ import LinkList from '../components/LinkList';
 export const User = React.createClass({
 
   render() {
-    const loginUser = this.props.appData.user || {};
-    const following = loginUser.following || [];
+    const following = this.props.appData.following || [];
     const displayedUser = following.reduce((previousVal, current)=> {
-      if (String(current.age) === this.props.params.id) {
+      if (String(current.username) === this.props.params.id) {
         return current;
       }
       return previousVal;
-    }, undefined);
+    }, {});
 
     return (
       <div>

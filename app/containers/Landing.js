@@ -3,6 +3,7 @@ import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import {getLoginData} from '../actions/app';
+import InputHeader from '../components/InputHeader';
 import UserPreview from '../components/UserPreview';
 
 export const Landing = React.createClass({
@@ -21,15 +22,12 @@ export const Landing = React.createClass({
   },
 
   render() {
-    const user = this.props.appData.user || {};
-    const following = user.following || [];
+    const user = this.props.appData.loginData || {};
+    const following = this.props.appData.following || [];
     return (
       <div>
         <Helmet title='Landing' />
-        <h2>{user.username}</h2>
-        <hr/>
-
-        <h5>Users:</h5>
+        <InputHeader loginData={this.props.appData.loginData} />
         {following.map((followedUser, index)=> {
           return <UserPreview key={'follwedUser-' + index} user={followedUser} />
         })}

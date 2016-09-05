@@ -1,4 +1,7 @@
 require('babel-core/register');
+require.extensions['.scss'] = () => {
+  return;
+};
 
 const path = require('path');
 const express = require('express');

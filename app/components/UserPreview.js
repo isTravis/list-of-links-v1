@@ -10,8 +10,10 @@ export const UserPreview = React.createClass({
     const user = this.props.user;
     return (
       <div>
-        <Link to={'/' + user.age}><h2>{user.username}</h2></Link>
-        <p>{user.location}</p>
+        <Link to={'/' + user.username}>
+          <img src={user.image} width="100px"/>
+          <div>{user.links.length}</div>
+        </Link>
       </div>
     );
   }

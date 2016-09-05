@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import Helmet from 'react-helmet';
 import {getLoginData} from '../actions/app';
+import AppNav from '../components/AppNav';
 
 export const App = React.createClass({
 
@@ -22,13 +23,8 @@ export const App = React.createClass({
   render() {
     return (
       <div>
-        <Helmet
-          title='MyApp'/>
-        <nav>
-          <ul>
-            <li><Link to='/'>Home</Link></li>
-          </ul>
-        </nav>
+        <Helmet title='MyApp'/>
+        <AppNav loginData={this.props.appData.loginData}/>
         {this.props.children}
       </div>
     );

@@ -7,7 +7,8 @@ import {
 const defaultState = {
   loading: false,
   error: undefined,
-  user: undefined,
+  loginData: {},
+  following: [],
 };
 
 const fakeLoginDataResult = {
@@ -47,7 +48,7 @@ export default function reducer(state = {}, action) {
         ...state,
         loading: false,
         // user: action.result,
-        user: fakeLoginDataResult,
+        ...fakeLoginDataResult,
       };
 
     case LOGIN_DATA_FAIL:
@@ -55,7 +56,8 @@ export default function reducer(state = {}, action) {
         ...state,
         loading: false,
         error: action.error,
-        user: undefined,
+        loginData: {},
+        following: []
       };
 
     default:
