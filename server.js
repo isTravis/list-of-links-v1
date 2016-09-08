@@ -9,6 +9,11 @@ const webpack = require('webpack');
 const dev = require('webpack-dev-middleware');
 const hot = require('webpack-hot-middleware');
 const config = require('./webpack.config.js');
+const httpProxy = require('http-proxy');
+const proxy = httpProxy.createProxyServer({
+  // target: 'http://localhost:' + config.apiPort,
+  target: 'http://localhost:9876'
+});
 
 const port = process.env.PORT || 3000;
 const server = express();
@@ -49,6 +54,17 @@ if (!process.env.NODE_ENV) {
   }));
   server.use(hot(compiler));
 }
+
+server.use('/api', (req, res) => {
+  proxy.web(req, res);
+});
+
+// added the error handling to avoid https://github.com/nodejitsu/node-http-proxy/issues/527
+proxy.on('error', (error, req, res) => {
+  if (error.code !== 'ECONNRESET') { console.error('proxy error', error); }
+  if (!res.headersSent) { res.writeHead(500, {'content-type': 'application/json'}); }
+  res.end(JSON.stringify({error: 'proxy_error', reason: error.message}));
+});
 
 server.get('*', require('./app').serverMiddleware);
 
