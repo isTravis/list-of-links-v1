@@ -51,7 +51,7 @@ export const InputHeader = React.createClass({
 					<input style={styles.input} id={'link'} name={'link'} type="url" placeholder={'URL'} value={this.state.link} onChange={this.linkChange} />
 
 					<button name={'login'} className={'button'} onClick={this.handleSubmit} style={styles.button}>
-						Add Link
+						Add
 					</button>
 
 
