@@ -19,14 +19,14 @@ export const LinkList = React.createClass({
 			<div>
 				<hr />
 				
-				{Object.keys(byDay).map((day) => {
+				{Object.keys(byDay).map((day, index) => {
 					const thisDate = new Date(day * 1000 * 60 * 60 * 24);
 					return (
-						<div>
+						<div key={'day-' + index}>
 							<h2>{months[thisDate.getMonth()] + ' ' + thisDate.getDate() + ', ' + thisDate.getFullYear()}</h2>
-							{byDay[day].map((link) => {
+							{byDay[day].map((link, index) => {
 								return (
-									<div>
+									<div key={'link-' + index}>
 										{link.createdAt}
 										<a href={link.url}>{link.title}</a>
 									</div>
