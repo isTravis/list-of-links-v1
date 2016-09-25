@@ -20,6 +20,7 @@ import {
 
 import {
 	CREATE_FOLLOW_SUCCESS,
+	UPDATE_LASTREAD_LOAD,
 	DESTROY_FOLLOW_SUCCESS
 } from '../actions/follow';
 
@@ -114,6 +115,26 @@ export default function reducer(state = defaultState, action) {
 			loginData: {
 				...state.loginData,
 				following: newFollowing
+			}
+		};
+
+	case UPDATE_LASTREAD_LOAD: 
+		return {
+			...state,
+			loginData: {
+				...state.loginData,
+				following: state.loginData.following.map((follow) => {
+					if (follow.id === action.followee) {
+						return {
+							...follow,
+							Follow: {
+								...follow.Follow,
+								lastRead: new Date(action.lastRead).toISOString()
+							}
+						};
+					}
+					return follow;
+				})
 			}
 		};
 

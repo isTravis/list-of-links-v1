@@ -39,8 +39,10 @@ export function createFollow(followee, lastRead) {
 }
 
 export function updateLastRead(followee) {
+	const lastRead = Date.now();
+
 	return (dispatch) => {
-		dispatch({ type: UPDATE_LASTREAD_LOAD });
+		dispatch({ type: UPDATE_LASTREAD_LOAD, followee: followee, lastRead: lastRead });
 
 		return clientFetch('/api/follow', {
 			method: 'PUT',
@@ -50,7 +52,7 @@ export function updateLastRead(followee) {
 			},
 			body: JSON.stringify({
 				followee: followee,
-				lastRead: Date.now(),
+				lastRead: lastRead,
 			})
 		})
 		.then((response) => {
