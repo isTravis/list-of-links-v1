@@ -2,6 +2,10 @@ import {
 	GET_USER_LOAD,
 	GET_USER_SUCCESS,
 	GET_USER_FAIL,
+
+	CREATE_LINK_LOAD,
+	CREATE_LINK_SUCCESS,
+	CREATE_LINK_FAIL,
 } from '../actions/user';
 
 const defaultState = {
@@ -15,6 +19,7 @@ export default function reducer(state = defaultState, action) {
 		
 	case GET_USER_LOAD:
 		return {
+			...state,
 			loading: true,
 			error: false,
 		};
@@ -32,6 +37,18 @@ export default function reducer(state = defaultState, action) {
 			error: action.error,
 			userData: {},
 		};
+
+	case CREATE_LINK_SUCCESS: 
+		const userData = state.userData || {};
+		const links = userData.links || [];
+		links.push(action.result);
+		return {
+			...state,
+			userData: {
+				...userData,
+				links: links,
+			}
+		}
 
 	default:
 		return state;

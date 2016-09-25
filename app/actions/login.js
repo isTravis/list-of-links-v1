@@ -13,7 +13,7 @@ export function login(username, password) {
 		return clientFetch('/api/login', {
 			method: 'POST',
 			headers: {
-				'Accept': 'application/json',
+				Accept: 'application/json',
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({
@@ -30,7 +30,7 @@ export function login(username, password) {
 		.catch((error) => {
 			dispatch({ type: LOGIN_FAIL, error });
 		});
-	}
+	};
 }
 
 export function logout() {

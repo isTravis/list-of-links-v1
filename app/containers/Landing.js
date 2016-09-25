@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
@@ -6,7 +6,13 @@ import { Link } from 'react-router';
 import InputHeader from '../components/InputHeader';
 import UserPreview from '../components/UserPreview';
 
+import { createLink } from '../actions/user';
+
 export const Landing = React.createClass({
+	propTypes: {
+		appData: PropTypes.object,
+		dispatch: PropTypes.func,
+	},
 
 	// statics: {
 	//   readyOnActions: function(dispatch) {
@@ -21,15 +27,19 @@ export const Landing = React.createClass({
 	//   Landing.readyOnActions(this.props.dispatch);
 	// },
 
+	addLink: function(description, link) {
+		this.props.dispatch(createLink(description, link));
+	},
+
 	render() {
 		const user = this.props.appData.loginData || {};
 		const following = user.following || [];
 		return (
 			<div>
 				<Helmet title="Landing" />
-				<InputHeader loginData={this.props.appData.loginData} />
+				<InputHeader loginData={this.props.appData.loginData} handleAddLink={this.addLink} />
 				{following.map((followedUser, index)=> {
-					return <UserPreview key={'follwedUser-' + index} user={followedUser} />
+					return <UserPreview key={'follwedUser-' + index} user={followedUser} />;
 				})}
 			</div>
 		);

@@ -19,6 +19,11 @@ export const User = React.createClass({
 			]);
 		}
 	},
+
+	// componentDidMount() {
+	//   // Need to check here so that getLoginData doesn't make a fetch twice
+	//   Landing.readyOnActions(this.props.dispatch);
+	// },
 	
 	render() {
 		// const following = this.props.appData.following || [];
