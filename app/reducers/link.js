@@ -1,37 +1,33 @@
 import {
-	GET_USER_LOAD,
-	GET_USER_SUCCESS,
-	GET_USER_FAIL,
-} from '../actions/user';
+	CREATE_LINK_LOAD,
+	CREATE_LINK_SUCCESS,
+	CREATE_LINK_FAIL,
+} from '../actions/link';
 
 const defaultState = {
 	loading: false,
 	error: undefined,
-	userData: {},
 };
 
 export default function reducer(state = defaultState, action) {
 	switch (action.type) {
 		
-	case GET_USER_LOAD:
+	case CREATE_LINK_LOAD: 	
 		return {
 			loading: true,
-			error: false,
-			userData: {},
+			error: undefined
 		};
 
-	case GET_USER_SUCCESS:
+	case CREATE_LINK_SUCCESS: 	
 		return {
 			loading: false,
-			error: false,
-			userData: action.result
+			error: undefined
 		};
 
-	case GET_USER_FAIL:
+	case CREATE_LINK_FAIL: 	
 		return {
 			loading: false,
-			error: action.error,
-			userData: {},
+			error: action.error
 		};
 
 	default:

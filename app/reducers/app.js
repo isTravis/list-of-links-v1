@@ -14,6 +14,15 @@ import {
 	LOGOUT_SUCCESS,
 } from '../actions/login';
 
+import {
+	CREATE_LINK_SUCCESS
+} from '../actions/link';
+
+import {
+	CREATE_FOLLOW_SUCCESS,
+	DESTROY_FOLLOW_SUCCESS
+} from '../actions/follow';
+
 const defaultState = {
 	loading: false,
 	error: undefined,
@@ -82,6 +91,41 @@ export default function reducer(state = defaultState, action) {
 		return {
 			...state,
 			loginData: {}
+		};
+
+	case CREATE_LINK_SUCCESS: 
+		const loginData = state.loginData || {};
+		const links = loginData.links || [];
+		links.push(action.result);
+		return {
+			...state,
+			loginData: {
+				...loginData,
+				links: links,
+			}
+		};
+
+	case CREATE_FOLLOW_SUCCESS: 
+		const newFollowing = state.loginData.following || [];
+		newFollowing.push(action.result);
+		// console.log(action.result);
+		return {
+			...state,
+			loginData: {
+				...state.loginData,
+				following: newFollowing
+			}
+		};
+
+	case DESTROY_FOLLOW_SUCCESS: 
+		return {
+			...state,
+			loginData: {
+				...state.loginData,
+				following: state.loginData.following.filter((follow) => {
+					return follow.id !== action.followee;
+				})
+			}
 		};
 
 	default:

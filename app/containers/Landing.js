@@ -6,7 +6,7 @@ import { Link } from 'react-router';
 import InputHeader from '../components/InputHeader';
 import UserPreview from '../components/UserPreview';
 
-import { createLink } from '../actions/user';
+import { createLink } from '../actions/link';
 
 export const Landing = React.createClass({
 	propTypes: {
