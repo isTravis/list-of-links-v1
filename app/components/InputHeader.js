@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 
+let styles;
 export const InputHeader = React.createClass({
 	propTypes: {
 		loginData: PropTypes.object,
@@ -24,32 +25,32 @@ export const InputHeader = React.createClass({
 	handleSubmit: function(evt) {
 		evt.preventDefault();
 		this.props.handleAddLink(this.state.description, this.state.link);
+		this.setState({
+			description: '',
+			link: ''
+		});
 	},
 
 	render: function() {
 		const user = this.props.loginData;
 		return (
-			<div>
-				<Link to={'/' + user.username}>
-					<img src={user.image} width="100px" alt="user" />
+			<div style={styles.container}>
+				<Link to={'/' + user.username} style={styles.imageLink}>
+					<img src={user.image} style={styles.image} alt="user" />
 				</Link>
 
 				{/* <input placeholder={'Description'} type={'text'}/>
 				<input placeholder={'link'} type={'url'}/> */}
 
-				<form onSubmit={this.handleSubmit}>
+				<form onSubmit={this.handleSubmit} style={styles.form}>
 
-					<div>
-						<label htmlFor={'description'}>Description</label>
-						<input id={'description'} name={'description'} type="text" value={this.state.description} onChange={this.descriptionChange} />
-					</div>
+					{/* <label htmlFor={'description'}>Description</label> */}
+					<input style={styles.input} id={'description'} name={'description'} type="text" placeholder={'Description'} value={this.state.description} onChange={this.descriptionChange} />
 
-					<div>
-						<label htmlFor={'link'}>Link</label>
-						<input id={'link'} name={'link'} type="url" value={this.state.link} onChange={this.linkChange} />
-					</div>
+					{/* <label htmlFor={'link'}>Link</label> */}
+					<input style={styles.input} id={'link'} name={'link'} type="url" placeholder={'URL'} value={this.state.link} onChange={this.linkChange} />
 
-					<button name={'login'} className={'button'} onClick={this.handleSubmit}>
+					<button name={'login'} className={'button'} onClick={this.handleSubmit} style={styles.button}>
 						Add Link
 					</button>
 
@@ -64,3 +65,40 @@ export const InputHeader = React.createClass({
 });
 
 export default InputHeader;
+
+styles = {
+	container: {
+		display: 'table',
+		width: '100%',
+		marginBottom: '1em',
+	},
+	imageLink: {
+		display: 'table-cell',
+		width: '1%',
+	},
+	image: {
+		height: '3em',
+		marginRight: '1em',
+		display: 'inline-block',
+	},
+	input: {
+		height: '3em',
+		marginRight: '1em',
+		width: 'calc(50% - 1em - 40px - 6px)',
+	},
+	form: {
+		display: 'table-cell',
+		verticalAlign: 'middle',
+	},
+	button: {
+		backgroundColor: 'black',
+		color: 'white',
+		border: '0px',
+		height: 'calc(3em + 6px)',
+		position: 'relative',
+		width: '80px',
+		top: '-1px',
+		cursor: 'pointer',
+	}
+};
+

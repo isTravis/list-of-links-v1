@@ -1,3 +1,5 @@
-.appnav-container {
-	background-color: #CCC;
+body {
+	max-width: 1024px;
+	margin: 0 auto;
+	padding: 0em 1em;
 }
