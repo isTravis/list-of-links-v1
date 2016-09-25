@@ -7,7 +7,8 @@
   "license": "MIT",
   "scripts": {
     "start": "node server",
-    "start-prod": "npm run build && NODE_ENV=production PORT=3000 node server",
+    "start-prod": "npm run build && NODE_ENV=production node server",
+    "start-prod-local": "npm run build && NODE_ENV=production PORT=3000 node server",
     "build": "NODE_ENV=production webpack --config ./webpack.production.config.js --progress"
   },
   "dependencies": {
@@ -21,6 +22,7 @@
     "isomorphic-fetch": "^2.2.1",
     "react": "^15.3.0",
     "react-dom": "^15.3.0",
+    "react-ga": "^2.1.2",
     "react-helmet": "^3.1.0",
     "react-redux": "^4.4.5",
     "react-router": "^2.6.1",

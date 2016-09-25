@@ -17,12 +17,16 @@ class Root extends Component {
   render() {
     const head = this.props.head;
     
+    // In production, we load the CSS file to avoid flicker. In dev, we import it to have HMR work.
+    const cssString = process.env.NODE_ENV === 'production' ? <link href='static/style.css' rel='stylesheet' type='text/css' /> : null;
+
     return (
       <html>
         <head>
           <meta charSet="utf-8"/>
           <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-          <link href='/print.css' rel='stylesheet' type='text/css' />
+          <link rel="shortcut icon" href="/static/favicon.ico" />
+          {cssString}
           {head.title.toComponent()}
           {head.meta.toComponent()}
           {head.link.toComponent()}

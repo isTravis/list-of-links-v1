@@ -1,5 +1,5 @@
 require('babel-core/register');
-require.extensions['.scss'] = () => {
+require.extensions['.css'] = () => {
   return;
 };
 
@@ -37,6 +37,7 @@ server.get('/favicon.ico', function(req, res) {
 });
 
 server.use(express.static(path.resolve(__dirname, 'dist')));
+server.use('/static', express.static(path.resolve(__dirname, 'static')));
 
 if (!process.env.NODE_ENV) {
   const compiler = webpack(config);

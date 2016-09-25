@@ -8,15 +8,22 @@ import routes from './Routes';
 import { Provider } from 'react-redux';
 import Root from './containers/Root';
 import configureStore from './configureStore';
+import ga from 'react-ga';
 
 const isClient = typeof document !== 'undefined';
 
 if (isClient) {
   const store = configureStore(window.__INITIAL_STATE__);
 
+  ga.initialize('UA-83907075-1');
+  function logPageView() {
+    ga.set({ page: window.location.pathname });
+    ga.pageview(window.location.pathname);
+  }
+
   ReactDOM.render(
     <Provider store={store}>
-      <Router history={browserHistory} routes={routes} render={applyRouterMiddleware(useScroll())}/>
+      <Router history={browserHistory} routes={routes} onUpdate={logPageView} render={applyRouterMiddleware(useScroll())}/>
     </Provider>,
     document.getElementById('root')
   );
