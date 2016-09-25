@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import UserHeader from '../components/UserHeader';
 import LinkList from '../components/LinkList';
+import NoMatch from '../containers/NoMatch';
 import { getUser } from '../actions/user';
 import { createFollow, updateLastRead, destroyFollow } from '../actions/follow';
 
@@ -23,17 +24,19 @@ export const User = React.createClass({
 		}
 	},
 
-	componentWillMount() {
-		// Need to check here so that getLoginData doesn't make a fetch twice
+	componentDidMount() {
+		// Need to check here so that getUser doesn't make a fetch twice
 		const user = this.props.userData.userData || {};
 		const params = this.props.params || {};
-		if (user.id !== params.id) {
+		if (this.props.userData.userData !== null && user.username !== params.id) {
 			User.readyOnActions(this.props.dispatch, this.props.params);	
 		}
 	},
 
 	componentWillReceiveProps(nextProps) {
-		if (!this.props.userData.userData.id && nextProps.userData.userData.id) {
+		const thisUserData = (this.props.userData && this.props.userData.userData) || {};
+		const nextUserData = (nextProps.userData && nextProps.userData.userData) || {};
+		if (!thisUserData.id && nextUserData.id) {
 			this.props.dispatch(updateLastRead(nextProps.userData.userData.id));
 		}
 	},
@@ -50,13 +53,7 @@ export const User = React.createClass({
 	
 	render() {
 		const following = this.props.appData.loginData.following || [];
-		// const displayedUser = following.reduce((previousVal, current)=> {
-		// 	if (String(current.username) === this.props.params.id) {
-		// 		return current;
-		// 	}
-		// 	return previousVal;
-		// }, {});
-		const user = this.props.userData.userData || {};
+		const user = this.props.userData.userData;
 		const isFollowed = following.reduce((previousVal, current) => {
 			if (current.username === this.props.params.id) {
 				return true;
@@ -64,9 +61,13 @@ export const User = React.createClass({
 			return false || previousVal;
 		}, false);
 
+		if (!user) {
+			return <NoMatch />;
+		}
+
 		return (
 			<div>
-				<Helmet title={user.name} />
+				<Helmet title={user.name || this.props.params.id} />
 				<UserHeader user={user} />
 
 				<div>Follow Status: {isFollowed ? 'Following' : 'Not Following'}</div>

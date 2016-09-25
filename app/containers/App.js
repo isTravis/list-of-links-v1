@@ -32,7 +32,7 @@ export const App = React.createClass({
 	render() {
 		return (
 			<div>
-				<Helmet title="MyApp" />
+				<Helmet title="List of Links" />
 				<AppNav loginData={this.props.appData.loginData} />
 				{this.props.children}
 			</div>

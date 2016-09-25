@@ -1,6 +1,8 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 
+let styles;
+
 export const UserPreview = React.createClass({
 	propTypes: {
 		user: PropTypes.object,
@@ -17,10 +19,11 @@ export const UserPreview = React.createClass({
 		}, 0);
 
 		return (
-			<div>
+			<div style={styles.container}>
 				<Link to={'/' + user.username}>
-					<img src={user.image} width="100px" alt={'user'} />
-					<div>{user.links.length} | {newLinkCount}</div>
+					<img style={styles.image} src={user.image} alt={'user'} />
+					<div style={styles.name}>{user.name}</div>
+					<div style={styles.count}>{newLinkCount}</div>
 
 				</Link>
 			</div>
@@ -30,3 +33,38 @@ export const UserPreview = React.createClass({
 });
 
 export default UserPreview;
+
+styles = {
+	container: {
+		position: 'relative',
+		display: 'inline-block',
+		margin: '0em .5em .5em 0em',
+	},
+	image: {
+		width: '150px',
+		display: 'block',
+	},
+	name: {
+		position: 'absolute',
+		width: 'calc(100% - 1em)',
+		padding: '0em .5em',
+		whiteSpace: 'nowrap',
+		overflow: 'hidden',
+		textOverflow: 'ellipsis',
+		backgroundColor: 'rgba(0,0,0,0.6)',
+		bottom: '0',
+		left: '0',
+		color: 'white',
+	},
+	count: {
+		position: 'absolute',
+		backgroundColor: 'purple',
+		color: 'white',
+		padding: '.25em .5em',
+		borderRadius: '10em',
+		lineHeight: '1em',
+		fontSize: '0.85em',
+		top: '-0.25em',
+		right: '-0.25em',
+	},
+};

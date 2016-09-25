@@ -1,16 +1,16 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Helmet from 'react-helmet';
 
-class NoMatch extends Component {
+export const NoMatch = React.createClass({
 
-  render() {
-    return (
-      <div>
-        <Helmet title='Not Found' />
-        Page was not found
-      </div>
-    )
-  }
-}
+	render() {
+		return (
+			<div>
+				<Helmet title="Not Found · List of Links" />
+				Page was not found
+			</div>
+		);
+	}
+});
 
 export default NoMatch;

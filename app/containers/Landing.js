@@ -36,7 +36,6 @@ export const Landing = React.createClass({
 		const following = user.following || [];
 		return (
 			<div>
-				<Helmet title="Landing" />
 				<InputHeader loginData={this.props.appData.loginData} handleAddLink={this.addLink} />
 				{following.map((followedUser, index)=> {
 					return <UserPreview key={'follwedUser-' + index} user={followedUser} />;

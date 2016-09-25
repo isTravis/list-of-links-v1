@@ -77,7 +77,7 @@ export const SignUp = React.createClass({
 
 		return (
 			<div>
-				<Helmet title={'Sign Up'} />
+				<Helmet title={'Sign Up · List of Links'} />
 				
 
 				<h1>Sign Up</h1>
