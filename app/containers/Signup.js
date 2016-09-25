@@ -3,6 +3,7 @@ import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { signup } from '../actions/signup';
+import ImageCropper from '../components/ImageCropper';
 
 let styles;
 
@@ -19,7 +20,9 @@ export const SignUp = React.createClass({
 			name: '',
 			email: '',
 			password: '',
-			image: 'https://avatars3.githubusercontent.com/u/1000455?v=3&s=466',
+			userImageFile: null,
+			userImageURL: undefined,
+			userImagePreview: undefined,
 		};
 	},
 
@@ -39,9 +42,31 @@ export const SignUp = React.createClass({
 		this.setState({ password: evt.target.value });
 	},
 
+	handleFileSelect: function(evt) {
+		if (evt.target.files.length) {
+			this.setState({ userImageFile: evt.target.files[0] });
+		}
+	},
+
+	cancelImageUpload: function() {
+		this.setState({ userImageFile: null });
+		document.getElementById('userImage').value = null;
+	},
+
+	userImageUploaded: function(url, preview) {
+		console.log(url);
+		this.setState({ 
+			userImageFile: null, 
+			userImageURL: url,
+			userImagePreview: preview 
+		});
+		document.getElementById('userImage').value = null;	
+		
+	},
+
 	handleSubmit: function(evt) {
 		evt.preventDefault();
-		this.props.dispatch(signup(this.state.username, this.state.name, this.state.email, this.state.password, this.state.image));
+		this.props.dispatch(signup(this.state.username, this.state.name, this.state.email, this.state.password, this.state.userImageURL));
 	},
 
 	render() {
@@ -79,6 +104,22 @@ export const SignUp = React.createClass({
 						<input id={'password'} name={'password'} type="password" style={styles.input} value={this.state.password} onChange={this.passwordChange} />
 					</div>
 
+					<div>
+						<label htmlFor={'userImage'}>
+							Profile Image
+						</label>
+						<img width="50px" src={this.state.userImagePreview} />
+						<input id={'userImage'} name={'user image'} type="file" accept="image/*" onChange={this.handleFileSelect} />
+
+					</div>
+
+					{this.state.userImageFile &&
+						<div style={styles.imageCropper}>
+							<ImageCropper height={500} width={500} image={this.state.userImageFile} onCancel={this.cancelImageUpload} onUpload={this.userImageUploaded} />
+						</div>
+					}
+					
+
 					<button name={'sign up'} className={'button'} onClick={this.handleSubmit}>
 						Sign Up
 					</button>
@@ -108,5 +149,28 @@ function mapStateToProps(state) {
 export default connect(mapStateToProps)(SignUp);
 
 styles = {
-
+	// imageCropperWrapper: {
+	// 	height: '100vh',
+	// 	width: '100vw',
+	// 	backgroundColor: 'rgba(255,255,255,0.75)',
+	// 	position: 'fixed',
+	// 	top: 0,
+	// 	left: 0,
+	// 	transition: '.1s linear opacity',
+	// 	display: 'flex',
+	// 	justifyContent: 'center',
+	// },
+	imageCropper: {
+		height: '270px',
+		width: '450px',
+		// alignSelf: 'center',
+		// backgroundColor: 'white',
+		// boxShadow: '0px 0px 10px #808284',
+		border: '1px solid #ccc',
+		// '@media screen and (min-resolution: 3dppx), screen and (max-width: 767px)': {
+		// 	width: '100%',
+		// 	height: 'auto',
+		// 	left: 0,
+		// },
+	},
 };

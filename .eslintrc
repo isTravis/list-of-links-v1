@@ -36,6 +36,7 @@
     "no-case-declarations": 0,
     "global-require": 0,
     "no-console": 0,
+    "max-len": 0,
     "no-multiple-empty-lines": 1,
     "no-undef": 1,
     "no-loop-func": 0,
