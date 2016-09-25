@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import dateFormat from 'dateformat';
 
 export const LinkList = React.createClass({
 	propTypes: {
@@ -27,8 +28,11 @@ export const LinkList = React.createClass({
 							{byDay[day].map((link, index) => {
 								return (
 									<div key={'link-' + index}>
-										{link.createdAt}
-										<a href={link.url}>{link.title}</a>
+										<a className={'userLink'} href={link.url}>
+											{link.title}
+											<div className={'userLinkDate'}>{dateFormat(link.createdAt, 'h:MM:ss TT')}</div>
+										</a>
+
 									</div>
 								);
 							})}
