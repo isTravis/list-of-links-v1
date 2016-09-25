@@ -30,6 +30,7 @@
     "block-scoped-var": 0,
     "padded-blocks": 0,
     "comma-dangle": 0,
+    "array-callback-return": 0,
     "arrow-body-style": 0,
     "comma-spacing": 1,
     "no-case-declarations": 0,

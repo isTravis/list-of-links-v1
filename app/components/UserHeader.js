@@ -9,7 +9,9 @@ export const UserHeader = React.createClass({
     const user = this.props.user;
     return (
       <div>
-        {JSON.stringify(user)}
+        <img src={user.image} width="100px" alt="user" />
+        <h2>{user.name}</h2>
+
       </div>
     );
   }
