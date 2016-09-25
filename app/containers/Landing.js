@@ -8,6 +8,8 @@ import UserPreview from '../components/UserPreview';
 
 import { createLink } from '../actions/link';
 
+let styles;
+
 export const Landing = React.createClass({
 	propTypes: {
 		appData: PropTypes.object,
@@ -37,9 +39,39 @@ export const Landing = React.createClass({
 		return (
 			<div>
 				<InputHeader loginData={this.props.appData.loginData} handleAddLink={this.addLink} />
-				{following.map((followedUser, index)=> {
-					return <UserPreview key={'follwedUser-' + index} user={followedUser} />;
-				})}
+
+				<div style={styles.previewsContainer}>
+					{following.map((followedUser, index)=> {
+						return <UserPreview key={'follwedUser-' + index} user={followedUser} />;
+					})}
+					{following.map((followedUser, index)=> {
+						return <UserPreview key={'follwedUser-' + index} user={followedUser} />;
+					})}
+					{following.map((followedUser, index)=> {
+						return <UserPreview key={'follwedUser-' + index} user={followedUser} />;
+					})}
+					{following.map((followedUser, index)=> {
+						return <UserPreview key={'follwedUser-' + index} user={followedUser} />;
+					})}
+					{following.map((followedUser, index)=> {
+						return <UserPreview key={'follwedUser-' + index} user={followedUser} />;
+					})}
+					{following.map((followedUser, index)=> {
+						return <UserPreview key={'follwedUser-' + index} user={followedUser} />;
+					})}
+					{following.map((followedUser, index)=> {
+						return <UserPreview key={'follwedUser-' + index} user={followedUser} />;
+					})}
+					{following.map((followedUser, index)=> {
+						return <UserPreview key={'follwedUser-' + index} user={followedUser} />;
+					})}
+					{following.map((followedUser, index)=> {
+						return <UserPreview key={'follwedUser-' + index} user={followedUser} />;
+					})}
+					{following.map((followedUser, index)=> {
+						return <UserPreview key={'follwedUser-' + index} user={followedUser} />;
+					})}
+				</div>
 			</div>
 		);
 	}
@@ -52,3 +84,17 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps)(Landing);
+
+styles = {
+	previewsContainer: {
+		display: 'flex',
+		flexDirection: 'row',
+		flexWrap: 'wrap',
+		justifyContent: 'space-between',
+		paddingTop: '1em',
+		width: 'calc(100% + 2em)',
+		position: 'relative',
+		left: '-1em',
+	},
+};
+

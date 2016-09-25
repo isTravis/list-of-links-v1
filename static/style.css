@@ -2,4 +2,6 @@ body {
 	max-width: 1024px;
 	margin: 0 auto;
 	padding: 0em 1em;
+	background-color: #F5F5F5;
+	font-family: 'Helvetica';
 }

@@ -20,11 +20,12 @@ export const UserPreview = React.createClass({
 
 		return (
 			<div style={styles.container}>
-				<Link to={'/' + user.username}>
+				<Link to={'/' + user.username} style={styles.link}>
 					<img style={styles.image} src={user.image} alt={'user'} />
 					<div style={styles.name}>{user.name}</div>
-					<div style={styles.count}>{newLinkCount}</div>
-
+					{!!newLinkCount && 
+						<div style={styles.count}>{newLinkCount}</div>
+					}
 				</Link>
 			</div>
 		);
@@ -38,11 +39,18 @@ styles = {
 	container: {
 		position: 'relative',
 		display: 'inline-block',
-		margin: '0em .5em .5em 0em',
+		// margin: '0em .5em .5em 0em',
+		// flex: '33%',
+		width: 'calc(150px + 2em)',
+		margin: '1em 0em',
+	},
+	link: {
+		textDecoration: 'none',
 	},
 	image: {
 		width: '150px',
 		display: 'block',
+		margin: '0 auto',
 	},
 	name: {
 		// position: 'absolute',
@@ -56,10 +64,11 @@ styles = {
 		// left: '0',
 		// color: 'white',
 		textAlign: 'center',
+		color: '#777',
 	},
 	count: {
 		position: 'absolute',
-		backgroundColor: 'purple',
+		backgroundColor: 'black',
 		color: 'white',
 		padding: '.25em .5em',
 		borderRadius: '10em',

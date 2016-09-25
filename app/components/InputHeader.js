@@ -94,7 +94,7 @@ styles = {
 		backgroundColor: 'black',
 		color: 'white',
 		border: '0px',
-		height: 'calc(3em + 6px)',
+		height: 'calc(3em + 5px)',
 		position: 'relative',
 		width: '80px',
 		top: '-1px',
