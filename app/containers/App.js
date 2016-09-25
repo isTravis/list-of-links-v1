@@ -1,45 +1,50 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
 import Helmet from 'react-helmet';
-import {getLoginData} from '../actions/app';
+import { login } from '../actions/app';
 import AppNav from '../components/AppNav';
 
 if (process.env.NODE_ENV !== 'production') {
-  require('../../static/style.css');
+	require('../../static/style.css');
 }
 
 export const App = React.createClass({
+	propTypes: {
+		appData: PropTypes.object,
+		children: PropTypes.object,
+		dispatch: PropTypes.func,
+	},
 
-  statics: {
-    readyOnActions: function(dispatch) {
-      return Promise.all([
-        dispatch(getLoginData())
-      ]);
-    }
-  },
+	statics: {
+		readyOnActions: function(dispatch) {
+			return Promise.all([
+				dispatch(login())
+			]);
+		}
+	},
 
-  componentDidMount() {
-    // Need to check here so that getLoginData doesn't make a fetch twice
-    App.readyOnActions(this.props.dispatch);
-  },
+	componentDidMount() {
+	// 	// Need to check here so that getLoginData doesn't make a fetch twice
+	// 	App.readyOnActions(this.props.dispatch);
+	// this.props.dispatch(login());
+	},
 
-  render() {
-    return (
-      <div>
-        <Helmet title='MyApp'/>
-        <AppNav loginData={this.props.appData.loginData}/>
-        {this.props.children}
-      </div>
-    );
-  },
+	render() {
+		return (
+			<div>
+				<Helmet title="MyApp" />
+				<AppNav loginData={this.props.appData.loginData} />
+				{this.props.children}
+			</div>
+		);
+	},
 
 });
 
 function mapStateToProps(state) {
-  return {
-    appData: state.app
-  };
+	return {
+		appData: state.app
+	};
 }
 
 export default connect(mapStateToProps)(App);

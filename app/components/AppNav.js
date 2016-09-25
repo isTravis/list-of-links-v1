@@ -2,18 +2,19 @@ import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 
 export const AppNav = React.createClass({
-  propTypes: {
-    loginData: PropTypes.object,
-  },
+	propTypes: {
+		loginData: PropTypes.object,
+	},
 
-  render: function() {
-    const user = this.props.user;
-    return (
-      <div className="appnav-container">
-        <Link to='/'>Home</Link>
-      </div>
-    );
-  }
+	render() {
+		const user = this.props.loginData || {};
+		return (
+			<div className="appnav-container">
+				<Link to="/">Home</Link>
+				<p>{user.name} | {user.username}</p>
+			</div>
+		);
+	}
 
 });
 

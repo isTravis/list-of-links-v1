@@ -13,8 +13,10 @@
     "react/jsx-boolean-value": 0,
     "react/jsx-quotes": 0,
     "react/jsx-indent": 0,
+    "react/no-unused-prop-types": 0,
     "react/sort-comp": 0,
     "react/prefer-es6-class": 0,
+    "react/prefer-stateless-function": 0,
     "react/no-multi-comp": 0,
     "import/default": 0,
     "import/no-duplicates": 0,
@@ -22,11 +24,14 @@
     "import/namespace": 0,
     "import/no-unresolved": 0,
     "import/no-named-as-default": 0,
+    "import/newline-after-import": 0,
     "jsx-quotes": 2,
     "block-scoped-var": 0,
     "padded-blocks": 0,
     "comma-dangle": 0,
+    "arrow-body-style": 0,
     "comma-spacing": 1,
+    "global-require": 0,
     "no-console": 0,
     "no-multiple-empty-lines": 1,
     "no-undef": 1,
@@ -63,6 +68,7 @@
     "__DISABLE_SSR__": true,
     "__DEVTOOLS__": true,
     "socket": true,
+    "clientFetch": true,
     "webpackIsomorphicTools": true
   }
 }

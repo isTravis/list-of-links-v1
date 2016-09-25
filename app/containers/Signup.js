@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
+import { signup } from '../actions/signup';
 
 let styles;
 
@@ -16,8 +17,9 @@ export const SignUp = React.createClass({
 		return {
 			username: '',
 			name: '',
+			email: '',
 			password: '',
-			image: '',
+			image: 'https://avatars3.githubusercontent.com/u/1000455?v=3&s=466',
 		};
 	},
 
@@ -29,14 +31,17 @@ export const SignUp = React.createClass({
 		this.setState({ name: evt.target.value });
 	},
 
+	emailChange: function(evt) {
+		this.setState({ email: evt.target.value });
+	},
+
 	passwordChange: function(evt) {
 		this.setState({ password: evt.target.value });
 	},
 
 	handleSubmit: function(evt) {
 		evt.preventDefault();
-		console.log(this.state.username, this.state.name, this.state.password, this.state.image);
-		// this.props.dispatch(signup(this.state.username, this.state.password));
+		this.props.dispatch(signup(this.state.username, this.state.name, this.state.email, this.state.password, this.state.image));
 	},
 
 	render() {
@@ -62,6 +67,11 @@ export const SignUp = React.createClass({
 					<div>
 						<label style={styles.label} htmlFor={'name'}>Name</label>
 						<input id={'name'} name={'name'} type="name" style={styles.input} value={this.state.name} onChange={this.nameChange} />
+					</div>
+
+					<div>
+						<label style={styles.label} htmlFor={'email'}>Email</label>
+						<input id={'email'} name={'email'} type="email" style={styles.input} value={this.state.email} onChange={this.emailChange} />
 					</div>
 
 					<div>
