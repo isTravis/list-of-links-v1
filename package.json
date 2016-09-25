@@ -6,6 +6,7 @@
   "author": "Travis Rich <hello@travisrich.com>",
   "license": "MIT",
   "scripts": {
+    "lint": "eslint app",
     "start": "node server",
     "start-prod": "npm run build && NODE_ENV=production node server",
     "start-prod-local": "npm run build && NODE_ENV=production PORT=3000 node server",
@@ -31,11 +32,18 @@
     "redux-thunk": "^2.1.0"
   },
   "devDependencies": {
+    "babel-eslint": "^6.1.2",
     "babel-loader": "^6.2.5",
     "babel-plugin-react-transform": "^2.0.2",
     "babel-plugin-transform-object-assign": "^6.8.0",
     "css-loader": "^0.25.0",
     "del": "^2.2.1",
+    "eslint": "^3.6.0",
+    "eslint-config-airbnb": "^11.2.0",
+    "eslint-loader": "^1.5.0",
+    "eslint-plugin-import": "^1.16.0",
+    "eslint-plugin-jsx-a11y": "^2.2.2",
+    "eslint-plugin-react": "^6.3.0",
     "node-sass": "^3.9.0",
     "react-transform-hmr": "^1.0.4",
     "redux-devtools": "^3.3.1",
