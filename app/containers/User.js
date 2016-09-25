@@ -1,35 +1,43 @@
-import React, { Component } from 'react';
+import React, { PropTypes } from 'react';
 import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import UserHeader from '../components/UserHeader';
 import LinkList from '../components/LinkList';
+import { getUser } from '../actions/user';
 
 export const User = React.createClass({
+	propTypes: {
+		userData: PropTypes.object,
+		dispatch: PropTypes.func,
+	},
 
-  render() {
-    const following = this.props.appData.following || [];
-    const displayedUser = following.reduce((previousVal, current)=> {
-      if (String(current.username) === this.props.params.id) {
-        return current;
-      }
-      return previousVal;
-    }, {});
+	statics: {
+		readyOnActions: function(dispatch, params) {
+			return Promise.all([
+				dispatch(getUser(params.id))
+			]);
+		}
+	},
+	
+	render() {
+		// const following = this.props.appData.following || [];
+		const user = this.props.userData.userData || {};
 
-    return (
-      <div>
-        <Helmet title={displayedUser.name} />
-        <UserHeader user={displayedUser} />
-        <LinkList links={displayedUser.links} />
-      </div>
-    );
-  }
+		return (
+			<div>
+				<Helmet title={user.name} />
+				<UserHeader user={user} />
+				<LinkList links={user.links} />
+			</div>
+		);
+	}
 });
 
 function mapStateToProps(state) {
-  return {
-    appData: state.app
-  };
+	return {
+		userData: state.user
+	};
 }
 
 export default connect(mapStateToProps)(User);
