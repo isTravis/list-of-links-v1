@@ -10,6 +10,7 @@ import {
 
 import {
 	LOGIN_SUCCESS,
+	LOGIN_FAIL,
 	LOGOUT_SUCCESS,
 } from '../actions/login';
 
@@ -61,11 +62,12 @@ export default function reducer(state = defaultState, action) {
 		};
 
 	case LOGIN_DATA_FAIL:
+	case LOGIN_FAIL:
 		return {
 			...state,
 			loading: false,
 			error: action.error,
-			// loginData: {},
+			loginData: {},
 			// following: []
 		};
 
