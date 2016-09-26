@@ -80,7 +80,7 @@ function handleRoute(res, renderProps) {
 function serverMiddleware(req, res) {
 	
 	global.clientFetch = function(route, opts) {
-		return fetch('http://localhost:3000' + route, {
+		return fetch(process.env.SITE_URL + route, {
 			...opts,
 			headers: {
 				cookie: req.get('cookie')
