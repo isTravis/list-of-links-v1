@@ -15,7 +15,8 @@ const config = require('./webpack.config.js');
 const httpProxy = require('http-proxy');
 
 const proxy = httpProxy.createProxyServer({
-	target: process.env.API_URL
+	// target: process.env.API_URL
+	target: 'https://list-of-links-api.herokuapp.com'
 });
 
 const port = process.env.PORT || 3000;
