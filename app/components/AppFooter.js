@@ -1,23 +1,23 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { Link } from 'react-router';
 
 let styles;
 
-export const Footer = React.createClass({
+export const AppFooter = React.createClass({
 	
 	render() {
 		return (
 			<div style={styles.container}>
-				<a href={'https://github.com/isTravis/listoflinks'} className={'link'} style={styles.item}>API</a>
-				<a href={'https://github.com/isTravis/listoflinks'} className={'link'} style={styles.item}>Github</a>
-				<a href={'https://github.com/isTravis/listoflinks'} className={'link'} style={styles.item}>About</a>
+				<a href={'https://github.com/isTravis/list-of-links-api'} className={'link'} style={styles.item}>API</a>
+				<a href={'https://github.com/isTravis/list-of-links'} className={'link'} style={styles.item}>Github</a>
+				<Link to={'/about'} className={'link'} style={styles.item}>About</Link>
 			</div>
 		);
 	}
 
 });
 
-export default Footer;
+export default AppFooter;
 
 styles = {
 	container: {
