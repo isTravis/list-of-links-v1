@@ -15,7 +15,6 @@ const config = require('./webpack.config.js');
 const httpProxy = require('http-proxy');
 
 const proxy = httpProxy.createProxyServer({
-	// target: 'http://localhost:' + config.apiPort,
 	target: process.env.API_URL
 });
 
