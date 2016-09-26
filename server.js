@@ -57,9 +57,12 @@ if (!process.env.NODE_ENV) {
 const httpProxy = require('http-proxy');
 
 const proxy = httpProxy.createProxyServer({
-	target: process.env.API_URL,
+	// target: process.env.API_URL,
 	// target: 'https://list-of-links-api.herokuapp.com',
-	// target: 'http://api.listoflinks.co',
+	target: 'https://api.listoflinks.co',
+	headers: {
+		host: 'list-of-links.herokuapp.com'
+	}
 });
 
 server.use('/api', (req, res) => {
@@ -69,8 +72,8 @@ server.use('/api', (req, res) => {
 // added the error handling to avoid https://github.com/nodejitsu/node-http-proxy/issues/527
 proxy.on('error', (error, req, res) => {
 	if (error.code !== 'ECONNRESET') { console.error('proxy error', error); }
-	if (!res.headersSent) { res.writeHead(500, {'content-type': 'application/json'}); }
-	res.end(JSON.stringify({error: 'proxy_error', reason: error.message}));
+	if (!res.headersSent) { res.writeHead(500, { 'content-type': 'application/json' }); }
+	res.end(JSON.stringify({ error: 'proxy_error', reason: error.message }));
 });
 
 server.get('*', require('./app').serverMiddleware);
