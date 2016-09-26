@@ -55,7 +55,7 @@ styles = {
 	name: {
 		// position: 'absolute',
 		width: 'calc(100% - 1em)',
-		padding: '0em .5em',
+		padding: '0.25em 0.5em 0em 0.5em',
 		whiteSpace: 'nowrap',
 		overflow: 'hidden',
 		textOverflow: 'ellipsis',
@@ -64,7 +64,7 @@ styles = {
 		// left: '0',
 		// color: 'white',
 		textAlign: 'center',
-		color: '#777',
+		color: '#555',
 	},
 	count: {
 		position: 'absolute',
@@ -75,6 +75,7 @@ styles = {
 		lineHeight: '1em',
 		fontSize: '0.85em',
 		top: '-0.25em',
-		right: '-0.25em',
+		left: '150px',
+		boxShadow: '0px 0px 20px white',
 	},
 };

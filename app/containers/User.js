@@ -5,8 +5,11 @@ import { Link } from 'react-router';
 import UserHeader from '../components/UserHeader';
 import LinkList from '../components/LinkList';
 import NoMatch from '../containers/NoMatch';
+import Loader from '../components/Loader';
 import { getUser } from '../actions/user';
 import { createFollow, updateLastRead, destroyFollow } from '../actions/follow';
+
+let styles;
 
 export const User = React.createClass({
 	propTypes: {
@@ -65,6 +68,10 @@ export const User = React.createClass({
 			return <NoMatch />;
 		}
 
+		if (!user.id) {
+			return <Loader />;
+		}
+
 		return (
 			<div>
 				<Helmet title={user.name || this.props.params.id} />
@@ -92,3 +99,9 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps)(User);
+
+styles = {
+	container: {
+		display: 'none',
+	},
+};

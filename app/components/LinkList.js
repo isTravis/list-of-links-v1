@@ -30,7 +30,7 @@ export const LinkList = React.createClass({
 									<div key={'link-' + index}>
 										<a className={'userLink'} href={link.url}>
 											{link.title}
-											<div className={'userLinkDate'}>{dateFormat(link.createdAt, 'h:MM:ss TT')}</div>
+											<div className={'userLinkDate'}>{dateFormat(link.createdAt, 'h:MM:ss TT')} - {link.url}</div>
 										</a>
 
 									</div>
