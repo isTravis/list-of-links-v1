@@ -80,7 +80,7 @@ export const ImageCropper = React.createClass({
 						Cancel
 					</div>
 					<div className={'button'} style={styles.option} key="userUploadSave" onClick={this.handleSaveImage}>
-						Save
+						Save Image
 					</div>
 				</div>
 				<div style={styles.loaderWrapper}>
@@ -150,11 +150,12 @@ styles = {
 	},
 	option: {
 		clear: 'both',
-		width: '75px',
+		width: '105px',
 		fontSize: '0.9em',
 		float: 'right',
 		textAlign: 'center',
 		marginBottom: '20px',
+		padding: '.25em 0em',
 		// textAlign: 'right',
 		// fontSize: '25px',
 		// color: '#555',

@@ -6,6 +6,7 @@ let styles;
 export const AppNav = React.createClass({
 	propTypes: {
 		loginData: PropTypes.object,
+		handleLogout: PropTypes.func,
 	},
 
 	render() {
@@ -17,13 +18,17 @@ export const AppNav = React.createClass({
 				</Link>
 
 				{user.id 
-					? <div style={styles.buttons}>
+					? <div className={'showChildOnHover'} style={styles.buttons}>
 						{user.name}
+						<div className={'hoverChild'} style={styles.navMenu}>
+							<Link to={'/' + user.username} className={'underlineOnHover'} style={styles.navMenuItem}>Profile</Link>
+							<div className={'underlineOnHover'} style={styles.navMenuItem} onClick={this.props.handleLogout}>Logout</div>
+						</div>
 					</div>
 					: <div style={styles.buttons}>
-						<Link to={'/login'}>Login</Link>
-						<span> | </span>
-						<Link to={'/signup'}>Sign Up</Link>
+						<Link to={'/login'} className={'underlineOnHover'} style={styles.navMenuItem}>Login</Link>
+						<span style={{ padding: '0em 1em' }} />
+						<Link to={'/signup'} className={'underlineOnHover'} style={styles.navMenuItem}>Sign Up</Link>
 					</div>
 				}
 				
@@ -50,5 +55,20 @@ styles = {
 		position: 'absolute',
 		right: '0',
 		top: '20px',
+		textAlign: 'right',
 	},
+	navMenu: {
+		backgroundColor: '#F5F5F5',
+		border: '1px solid #DDD',
+		padding: '1em .25em 0em 2em',
+		zIndex: 10,
+		position: 'relative',
+
+	},
+	navMenuItem: {
+		cursor: 'pointer',
+		paddingBottom: '.5em',
+		color: 'black',
+		textDecoration: 'none',
+	}
 };

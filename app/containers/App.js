@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { login } from '../actions/app';
 import AppNav from '../components/AppNav';
+import { logout } from '../actions/login';
 
 if (process.env.NODE_ENV !== 'production') {
 	require('../../static/style.css');
@@ -29,11 +30,15 @@ export const App = React.createClass({
 	// this.props.dispatch(login());
 	},
 
+	handleLogout: function() {
+		this.props.dispatch(logout());
+	},
+
 	render() {
 		return (
 			<div>
 				<Helmet title="List of Links" />
-				<AppNav loginData={this.props.appData.loginData} />
+				<AppNav loginData={this.props.appData.loginData} handleLogout={this.handleLogout} />
 				{this.props.children}
 			</div>
 		);

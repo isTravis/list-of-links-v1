@@ -47,9 +47,16 @@ export const LinkList = React.createClass({
 									</div>
 								);
 							})}
+
 						</div>
 					);
 				})}
+
+				{links.length === 0 && 
+					<div style={styles.noLinks}>
+						No links yet
+					</div>
+				}
 			</div>
 		);
 	}
@@ -63,5 +70,12 @@ styles = {
 		fontSize: '1.25em',
 		fontWeight: 'bold',
 		color: '#555',
+	},
+	noLinks: {
+		fontSize: '1.25em',
+		fontWeight: 'bold',
+		color: '#555',
+		textAlign: 'center',
+		margin: '3em 0em',
 	},
 };

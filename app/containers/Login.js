@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
 import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
-import { login, logout } from '../actions/login';
+import { Link, browserHistory } from 'react-router';
+import { login } from '../actions/login';
 
 let styles;
 
@@ -20,6 +20,18 @@ export const Login = React.createClass({
 		};
 	},
 
+	componentWillReceiveProps(nextProps) {
+		// If there is a new ID in loginData, login was a sucess, so redirect
+		const oldID = this.props.appData.loginData.id;
+		const newID = nextProps.appData.loginData.id;
+		if (newID && oldID !== newID) {
+			// new ID exists and is not the same as oldusername
+			// const redirectRoute = this.props.query && this.props.query.redirect;
+			// this.props.dispatch(push(redirectRoute || '/'));
+			browserHistory.push('/');
+		}
+	},
+
 	usernameChange: function(evt) {
 		this.setState({ username: evt.target.value.toLowerCase() });
 	},
@@ -31,10 +43,6 @@ export const Login = React.createClass({
 		evt.preventDefault();
 		// console.log(this.state.username, this.state.password);
 		this.props.dispatch(login(this.state.username, this.state.password));
-	},
-
-	handleLogout: function() {
-		this.props.dispatch(logout());
 	},
 
 	render() {
@@ -62,7 +70,7 @@ export const Login = React.createClass({
 						<input id={'password'} name={'password'} type="password" style={styles.input} value={this.state.password} onChange={this.passwordChange} />
 					</div>
 
-					<button name={'login'} className={'button'} onClick={this.handleSubmit}>
+					<button name={'login'} className={'button'} style={styles.submitButton} onClick={this.handleSubmit}>
 						Login
 					</button>
 
@@ -72,13 +80,9 @@ export const Login = React.createClass({
 
 				</form>
 
-				<Link to={'/signup' + redirectQuery}>
+				<Link to={'/signup' + redirectQuery} className={'link'}>
 					Need an Account? Click to Sign Up!
 				</Link>
-
-				{this.props.appData.loginData.id &&
-					<div onClick={this.handleLogout}>Logout</div>
-				}
 
 			</div>
 
@@ -95,5 +99,10 @@ function mapStateToProps(state) {
 export default connect(mapStateToProps)(Login);
 
 styles = {
-
+	submitButton: {
+		fontSize: '0.85em',
+		padding: '.5em 1em',
+		display: 'inline-block',
+		margin: '1em 0em',
+	},
 };

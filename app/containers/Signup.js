@@ -120,7 +120,7 @@ export const SignUp = React.createClass({
 					}
 					
 
-					<button name={'sign up'} className={'button'} onClick={this.handleSubmit}>
+					<button name={'sign up'} className={'button'} style={styles.submitButton} onClick={this.handleSubmit}>
 						Sign Up
 					</button>
 
@@ -130,7 +130,7 @@ export const SignUp = React.createClass({
 
 				</form>
 
-				<Link to={'/signup' + redirectQuery}>
+				<Link to={'/signup' + redirectQuery} className={'link'}>
 					Have an Account? Click to Login.
 				</Link>
 
@@ -149,28 +149,16 @@ function mapStateToProps(state) {
 export default connect(mapStateToProps)(SignUp);
 
 styles = {
-	// imageCropperWrapper: {
-	// 	height: '100vh',
-	// 	width: '100vw',
-	// 	backgroundColor: 'rgba(255,255,255,0.75)',
-	// 	position: 'fixed',
-	// 	top: 0,
-	// 	left: 0,
-	// 	transition: '.1s linear opacity',
-	// 	display: 'flex',
-	// 	justifyContent: 'center',
-	// },
+	submitButton: {
+		fontSize: '0.85em',
+		padding: '.5em 1em',
+		display: 'inline-block',
+		margin: '1em 0em',
+	},
+
 	imageCropper: {
 		height: '270px',
 		width: '450px',
-		// alignSelf: 'center',
-		// backgroundColor: 'white',
-		// boxShadow: '0px 0px 10px #808284',
 		border: '1px solid #ccc',
-		// '@media screen and (min-resolution: 3dppx), screen and (max-width: 767px)': {
-		// 	width: '100%',
-		// 	height: 'auto',
-		// 	left: 0,
-		// },
 	},
 };

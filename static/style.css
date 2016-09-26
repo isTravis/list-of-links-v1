@@ -6,9 +6,26 @@ body {
 	font-family: 'Helvetica';
 }
 
+label {
+	padding-right: 1em;
+	margin-bottom: .25em;
+	width: 100px;
+	display: inline-block;
+}
+
+.link {
+	text-decoration: none;
+	color: inherit;
+}
+
+.link:hover {
+	text-decoration: underline;
+}
+
 .button {
 	background-color: black;
 	color: white;
+	border: 0px;
 	cursor: pointer;
 	-webkit-user-select: none;
 	-moz-user-select: none;
@@ -17,7 +34,7 @@ body {
 }
 
 .button:hover {
-	
+
 }
 
 .button:active {
@@ -50,6 +67,25 @@ body {
 }
 .userLink:hover .userLinkDate {
 	opacity: 1;
+}
+
+.underlineOnHover:hover {
+	text-decoration: underline !important;
+}
+
+.showChildOnHover .hoverChild {
+	opacity: 0;
+	transition: .1s linear opacity;
+	pointer-events: none;
+	user-select: none;
+	-webkit-user-select: none;
+}
+
+.showChildOnHover:hover .hoverChild {
+	opacity: 1;
+	pointer-events: auto;
+	user-select: text;
+	-webkit-user-select: text;
 }
 
 /* ------ */

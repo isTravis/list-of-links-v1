@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react';
-import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 // import {getLoginData} from '../actions/app';
@@ -36,9 +35,18 @@ export const Landing = React.createClass({
 	render() {
 		const user = this.props.appData.loginData || {};
 		const following = user.following || [];
+
 		return (
 			<div>
-				<InputHeader loginData={this.props.appData.loginData} handleAddLink={this.addLink} />
+				{user.id
+					? <InputHeader loginData={this.props.appData.loginData} handleAddLink={this.addLink} />
+					: <div>
+						<h1>List of Links</h1>
+						<p>Welcome! Please <Link to={'/login'} className={'link'}>Login</Link> or <Link to={'/signup'} className={'link'}>Sign up</Link> to get started</p>
+
+					</div>
+				}
+				
 
 				<div style={styles.previewsContainer}>
 					{following.map((followedUser, index)=> {
