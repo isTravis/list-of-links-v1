@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { login } from '../actions/app';
 import AppNav from '../components/AppNav';
+import AppFooter from '../components/AppFooter';
 import { logout } from '../actions/login';
 
 if (process.env.NODE_ENV !== 'production') {
@@ -39,7 +40,8 @@ export const App = React.createClass({
 			<div>
 				<Helmet title="List of Links" />
 				<AppNav loginData={this.props.appData.loginData} handleLogout={this.handleLogout} />
-				{this.props.children}
+				<div style={{ minHeight: 'calc(100vh - 50px' }}>{this.props.children}</div>
+				<AppFooter />
 			</div>
 		);
 	},

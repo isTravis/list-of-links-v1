@@ -26,9 +26,9 @@ export const AppNav = React.createClass({
 						</div>
 					</div>
 					: <div style={styles.buttons}>
-						<Link to={'/login'} className={'underlineOnHover'} style={styles.navMenuItem}>Login</Link>
+						<Link to={'/login'} className={'link'}>Login</Link>
 						<span style={{ padding: '0em 1em' }} />
-						<Link to={'/signup'} className={'underlineOnHover'} style={styles.navMenuItem}>Sign Up</Link>
+						<Link to={'/signup'} className={'link'}>Sign Up</Link>
 					</div>
 				}
 				
@@ -54,21 +54,24 @@ styles = {
 	buttons: {
 		position: 'absolute',
 		right: '0',
-		top: '20px',
+		top: '10px',
 		textAlign: 'right',
+		height: '40px',
+		lineHeight: '40px',
 	},
 	navMenu: {
 		backgroundColor: '#F5F5F5',
 		border: '1px solid #DDD',
 		padding: '1em .25em 0em 2em',
 		zIndex: 10,
-		position: 'relative',
-
+		position: 'absolute',
+		lineHeight: '1em',
 	},
 	navMenuItem: {
 		cursor: 'pointer',
 		paddingBottom: '.5em',
 		color: 'black',
 		textDecoration: 'none',
+		display: 'block'
 	}
 };
