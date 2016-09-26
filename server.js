@@ -40,6 +40,17 @@ server.get('/favicon.ico', function(req, res) {
 	res.end();
 });
 
+
+server.get('/.well-known/acme-challenge/JhI3krcxvBNhK3jYk-FwSHtzlqEDsgMrFIjVfEnwwto', function(req, res) {
+	res.send('JhI3krcxvBNhK3jYk-FwSHtzlqEDsgMrFIjVfEnwwto.t4GiXyju_RoxyU_6E3vrHKYnR2IuK__YTJQI-sc78os');
+});
+
+server.get('/.well-known/acme-challenge/eTUB-IVGn_lyP_5UG3QE2d2YJ297HROMDTvZvda6s5w', function(req, res) {
+	res.send('eTUB-IVGn_lyP_5UG3QE2d2YJ297HROMDTvZvda6s5w.t4GiXyju_RoxyU_6E3vrHKYnR2IuK__YTJQI-sc78os');
+});
+
+
+
 server.use(express.static(path.resolve(__dirname, 'dist')));
 server.use('/static', express.static(path.resolve(__dirname, 'static')));
 
