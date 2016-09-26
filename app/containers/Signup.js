@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import { signup } from '../actions/signup';
 import ImageCropper from '../components/ImageCropper';
 
@@ -26,6 +26,18 @@ export const SignUp = React.createClass({
 		};
 	},
 
+	componentWillReceiveProps(nextProps) {
+		// If there is a new ID in loginData, login was a sucess, so redirect
+		const oldID = this.props.appData.loginData.id;
+		const newID = nextProps.appData.loginData.id;
+		if (newID && oldID !== newID) {
+			// new ID exists and is not the same as oldusername
+			// const redirectRoute = this.props.query && this.props.query.redirect;
+			// this.props.dispatch(push(redirectRoute || '/'));
+			browserHistory.push('/');
+		}
+	},
+	
 	usernameChange: function(evt) {
 		this.setState({ username: evt.target.value.toLowerCase() });
 	},
