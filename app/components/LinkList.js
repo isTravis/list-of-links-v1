@@ -1,14 +1,20 @@
 import React, { PropTypes } from 'react';
 import dateFormat from 'dateformat';
 
+let styles;
 export const LinkList = React.createClass({
 	propTypes: {
 		links: PropTypes.array,
 	},
 
+	buildDateString: function(date) {
+		const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+		return months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear();
+	},
+
 	render: function() {
 		const links = this.props.links || [];
-		const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+		
 		const byDay = {};
 		links.map((value) => {
 			let thisday = new Date(value.createdAt);
@@ -19,10 +25,17 @@ export const LinkList = React.createClass({
 		return (
 			<div>
 				{Object.keys(byDay).map((day, index) => {
-					const thisDate = new Date(day * 1000 * 60 * 60 * 24);
+					const thisDate = new Date(byDay[day][0].createdAt);
+					const thisDateString = this.buildDateString(thisDate);
+					const todayDateString = this.buildDateString(new Date());
+					const yesterdayDateString = this.buildDateString(new Date(Date.now() - 86400000));
+					let dateString = thisDateString;
+					if (thisDateString === todayDateString) { dateString = 'Today'; }
+					if (thisDateString === yesterdayDateString) { dateString = 'Yesterday'; }
+
 					return (
 						<div key={'day-' + index}>
-							<h2>{months[thisDate.getMonth()] + ' ' + thisDate.getDate() + ', ' + thisDate.getFullYear()}</h2>
+							<div style={styles.date}>{dateString}</div>
 							{byDay[day].map((link, linkIndex) => {
 								return (
 									<div key={'link-' + linkIndex}>
@@ -44,3 +57,11 @@ export const LinkList = React.createClass({
 });
 
 export default LinkList;
+
+styles = {
+	date: {
+		fontSize: '1.25em',
+		fontWeight: 'bold',
+		color: '#555',
+	},
+};

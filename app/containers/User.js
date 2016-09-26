@@ -110,6 +110,7 @@ styles = {
 	header: {
 		display: 'table',
 		paddingBottom: '1em',
+		marginBottom: '1em',
 		borderBottom: '1px solid #555',
 		width: '100%',
 	},
