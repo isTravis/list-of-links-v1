@@ -2,7 +2,6 @@ import React, { PropTypes } from 'react';
 import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import UserHeader from '../components/UserHeader';
 import LinkList from '../components/LinkList';
 import NoMatch from '../containers/NoMatch';
 import Loader from '../components/Loader';
@@ -75,16 +74,23 @@ export const User = React.createClass({
 		return (
 			<div>
 				<Helmet title={user.name || this.props.params.id} />
-				<UserHeader user={user} />
-
-				<div>Follow Status: {isFollowed ? 'Following' : 'Not Following'}</div>
-
-				{isFollowed
-					? <div onClick={this.handleFollowDestroy}>Click to Unfollow</div>
-					: <div onClick={this.handleFollowCreate}>Click to Follow</div>
-				}
 				
+				<div style={styles.header}>
+					<div style={styles.imageWrapper}>
+						<img style={styles.image} src={user.image} alt="user" />
+					</div>
+					<div style={styles.userDetails}>
+						<div style={styles.name}>{user.name}</div>
+					</div>
 
+					<div style={styles.followWrapper}>
+						{isFollowed
+							? <div className={'button'} onClick={this.handleFollowDestroy} style={styles.followButton}>Following</div>
+							: <div className={'button'} onClick={this.handleFollowCreate} style={styles.followButton}>Follow</div>
+						}
+					</div>
+				</div>
+				
 				<LinkList links={user.links} />
 			</div>
 		);
@@ -101,7 +107,36 @@ function mapStateToProps(state) {
 export default connect(mapStateToProps)(User);
 
 styles = {
-	container: {
-		display: 'none',
+	header: {
+		display: 'table',
+		paddingBottom: '1em',
+		borderBottom: '1px solid #555',
+		width: '100%',
 	},
+	imageWrapper: {
+		display: 'table-cell',
+		width: '1%',
+	},
+	image: {
+		width: '100px',
+	},
+	userDetails: {
+		display: 'table-cell',
+		verticalAlign: 'middle',
+	},
+	name: {
+		fontSize: '4em',
+		fontWeight: 'bold',
+		paddingLeft: '.25em',
+	},
+	followWrapper: {
+		display: 'table-cell',
+		verticalAlign: 'middle',	
+		width: '1%',
+	},
+	followButton: {
+		whiteSpace: 'nowrap',
+		padding: '.25em .5em',
+	},
+
 };

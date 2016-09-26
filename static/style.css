@@ -6,6 +6,24 @@ body {
 	font-family: 'Helvetica';
 }
 
+.button {
+	background-color: black;
+	color: white;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.button:hover {
+	
+}
+
+.button:active {
+	transform: translateY(1px);
+}
+
 .userLink {
 	text-decoration: none;
 	color: black;
