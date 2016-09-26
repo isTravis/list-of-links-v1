@@ -24,7 +24,12 @@ export const LinkList = React.createClass({
 		});
 		return (
 			<div>
-				{Object.keys(byDay).map((day, index) => {
+				{Object.keys(byDay).sort((foo, bar) => {
+					// Sort so that most recent is first in array
+					if (byDay[foo] > byDay[bar]) { return 1; }
+					if (byDay[foo] < byDay[bar]) { return -1; }
+					return 0;
+				}).map((day, index) => {
 					const thisDate = new Date(byDay[day][0].createdAt);
 					const thisDateString = this.buildDateString(thisDate);
 					const todayDateString = this.buildDateString(new Date());
