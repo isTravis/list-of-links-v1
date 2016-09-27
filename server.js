@@ -67,14 +67,13 @@ const proxy = httpProxy.createProxyServer({
 });
 
 server.use('/api', (req, res) => {
-	console.log('Okay, were in the proxy');
 	proxy.web(req, res);
 });
 
-proxy.on('proxyReq', function(proxyReq, req, res, options) {
-	console.log(proxyReq);
-  // proxyReq.setHeader('X-Special-Proxy-Header', 'foobar');
-});
+// proxy.on('proxyReq', function(proxyReq, req, res, options) {
+// 	console.log(proxyReq);
+//   // proxyReq.setHeader('X-Special-Proxy-Header', 'foobar');
+// });
 
 // added the error handling to avoid https://github.com/nodejitsu/node-http-proxy/issues/527
 proxy.on('error', (error, req, res) => {
