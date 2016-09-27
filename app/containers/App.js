@@ -34,7 +34,7 @@ export const App = React.createClass({
 			<div>
 				<Helmet title="List of Links" />
 				<AppNav loginData={this.props.appData.loginData} handleLogout={this.handleLogout} />
-				<div style={{ minHeight: 'calc(100vh - 50px)' }}>{this.props.children}</div>
+				<div style={{ minHeight: 'calc(100vh - 75px)' }}>{this.props.children}</div>
 				<AppFooter />
 			</div>
 		);

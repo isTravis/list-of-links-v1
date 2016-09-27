@@ -90,6 +90,6 @@ styles = {
 		fontWeight: 'bold',
 		color: '#555',
 		textAlign: 'center',
-		margin: '3em 0em',
+		padding: '3em 0em',
 	},
 };

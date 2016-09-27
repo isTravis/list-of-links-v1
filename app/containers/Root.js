@@ -1,18 +1,26 @@
-import React, { Component } from 'react';
+/* global __ENVIRONMENT__ __MAINBUNDLE__ */
 
-class Root extends Component {
+import React, { PropTypes } from 'react';
 
-	renderInitialState() {
+export const Root = React.createClass({
+	propTypes: {
+		content: PropTypes.object,
+		initialState: PropTypes.object,
+		head: PropTypes.object,
+	},
+
+	renderInitialState: function() {
 		if (this.props.initialState) {
 			const innerHtml = `window.__INITIAL_STATE__ = ${JSON.stringify(this.props.initialState)}`;
-			return <script dangerouslySetInnerHTML={{__html: innerHtml}} />;
+			return <script dangerouslySetInnerHTML={{ __html: innerHtml }} />;
 		}
-	}
+		return null;
+	},
 
-	renderEnvironment() {
+	renderEnvironment: function() {
 		const innerHtml = `window.__ENVIRONMENT__ = '${__ENVIRONMENT__}'`;
-		return <script dangerouslySetInnerHTML={{__html: innerHtml}} />;
-	}
+		return <script dangerouslySetInnerHTML={{ __html: innerHtml }} />;
+	},
 
 	render() {
 		const head = this.props.head;
@@ -40,6 +48,6 @@ class Root extends Component {
 			</html>
 		);
 	}
-}
+});
 
 export default Root;
