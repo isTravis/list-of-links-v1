@@ -58,6 +58,9 @@ const httpProxy = require('http-proxy');
 
 const proxy = httpProxy.createProxyServer({
 	target: process.env.API_URL,
+	headers: {
+		host: 'list-of-links.herokuapp.com',
+	}
 	// target: 'https://list-of-links-api.herokuapp.com',
 	// target: 'https://api.listoflinks.co',
 });
