@@ -96,13 +96,29 @@ label {
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
-	justify-content: space-between;
+	justify-content: space-around;
 	padding-top: 1em;
 	width: calc(100% + 2em);
 	position: relative;
 	left: -1em;
 }
+/* ------------ */
 
+/* ------------ */
+/* User Page */
+/* ------------ */
+@media screen and (min-resolution: 3dppx), screen and (max-width: 767px) {
+	.user-header {
+		display: block !important;
+	}
+	.user-name {
+		font-size: 3em !important;
+	}
+	.user-follow {
+		display: inline-block !important;
+		width: 100px !important;
+	}
+}
 /* ------------ */
 
 

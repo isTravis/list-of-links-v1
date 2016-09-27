@@ -75,15 +75,15 @@ export const User = React.createClass({
 			<div>
 				<Helmet title={user.name || this.props.params.id} />
 				
-				<div style={styles.header}>
+				<div style={styles.header} className={'user-header'}>
 					<div style={styles.imageWrapper}>
 						<img style={styles.image} src={user.image} alt="user" />
 					</div>
 					<div style={styles.userDetails}>
-						<div style={styles.name}>{user.name}</div>
+						<div style={styles.name} className={'user-name'}>{user.name}</div>
 					</div>
 
-					<div style={styles.followWrapper}>
+					<div style={styles.followWrapper} className={'user-follow'}>
 						{isFollowed
 							? <div className={'button'} onClick={this.handleFollowDestroy} style={styles.followButton}>Following</div>
 							: <div className={'button'} onClick={this.handleFollowCreate} style={styles.followButton}>Follow</div>
@@ -113,6 +113,7 @@ styles = {
 		marginBottom: '1em',
 		borderBottom: '1px solid #555',
 		width: '100%',
+		overflow: 'hidden',
 	},
 	imageWrapper: {
 		display: 'table-cell',
@@ -134,6 +135,7 @@ styles = {
 		display: 'table-cell',
 		verticalAlign: 'middle',	
 		width: '1%',
+		textAlign: 'center',
 	},
 	followButton: {
 		whiteSpace: 'nowrap',
