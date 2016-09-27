@@ -19,6 +19,16 @@ export const Landing = React.createClass({
 		this.props.dispatch(createLink(description, link));
 	},
 
+	calculateLinkCount: function(user) {
+		const lastRead = user.Follow && user.Follow.lastRead;
+		return user.links.reduce((previousVal, current) => {
+			if (current.createdAt > lastRead) {
+				return previousVal + 1;	
+			}
+			return previousVal;
+		}, 0);
+	},
+
 	render() {
 		const user = this.props.appData.loginData || {};
 		const following = user.following || [];
@@ -36,7 +46,13 @@ export const Landing = React.createClass({
 				
 
 				<div className={'previews-container'}>
-					{following.map((followedUser, index)=> {
+					{following.sort((foo, bar)=> {
+						const fooCount = this.calculateLinkCount(foo);
+						const barCount = this.calculateLinkCount(bar);
+						if (fooCount > barCount) { return -1; }
+						if (fooCount < barCount) { return 1; }
+						return 0;
+					}).map((followedUser, index)=> {
 						return <UserPreview key={'follwedUser-' + index} user={followedUser} />;
 					})}
 					{following.map((followedUser, index)=> {

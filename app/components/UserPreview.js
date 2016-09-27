@@ -8,15 +8,19 @@ export const UserPreview = React.createClass({
 		user: PropTypes.object,
 	},
 
-	render: function() {
-		const user = this.props.user || {};
+	calculateLinkCount: function(user) {
 		const lastRead = user.Follow && user.Follow.lastRead;
-		const newLinkCount = user.links.reduce((previousVal, current) => {
+		return user.links.reduce((previousVal, current) => {
 			if (current.createdAt > lastRead) {
 				return previousVal + 1;	
 			}
 			return previousVal;
 		}, 0);
+	},
+
+	render: function() {
+		const user = this.props.user || {};
+		const newLinkCount = this.calculateLinkCount(user);
 
 		return (
 			<div style={styles.container}>
