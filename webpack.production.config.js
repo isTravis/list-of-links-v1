@@ -16,8 +16,7 @@ module.exports = {
 	entry: './app/index',
 	output: {
 		path: path.join(__dirname, 'dist'),
-		// filename: 'app.min.js',
-		filename: '[name]-[hash].js',
+		filename: 'app.[hash].js',
 		publicPath: '/'
 	},
 	plugins: [

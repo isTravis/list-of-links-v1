@@ -4,8 +4,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 if (process.env.NODE_ENV === 'production') {
 	const fs = require('fs');
-	const fileName = fs.readdirSync('./dist/')[0];
-	global.__MAINBUNDLE__ = fileName;
+	global.__MAINBUNDLE__ = fs.readdirSync('./dist/')[0];
 }
 
 require('babel-core/register');
