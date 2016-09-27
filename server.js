@@ -57,6 +57,7 @@ if (!process.env.NODE_ENV) {
 const httpProxy = require('http-proxy');
 
 const proxy = httpProxy.createProxyServer({
+	changeOrigin: true,
 	target: process.env.API_URL,
 	// headers: {
 	// 	host: 'list-of-links.herokuapp.com',
