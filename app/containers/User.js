@@ -56,6 +56,7 @@ export const User = React.createClass({
 	render() {
 		const following = this.props.appData.loginData.following || [];
 		const user = this.props.userData.userData;
+		const isSelf = this.props.appData.loginData.username === this.props.params.id;
 		const isFollowed = following.reduce((previousVal, current) => {
 			if (current.username === this.props.params.id) {
 				return true;
@@ -83,12 +84,15 @@ export const User = React.createClass({
 						<div style={styles.name} className={'user-name'}>{user.name}</div>
 					</div>
 
-					<div style={styles.followWrapper} className={'user-follow'}>
-						{isFollowed
-							? <div className={'button'} onClick={this.handleFollowDestroy} style={styles.followButton}>Following</div>
-							: <div className={'button'} onClick={this.handleFollowCreate} style={styles.followButton}>Follow</div>
-						}
-					</div>
+					{!isSelf &&
+						<div style={styles.followWrapper} className={'user-follow'}>
+							{isFollowed
+								? <div className={'button'} onClick={this.handleFollowDestroy} style={styles.followButton}>Following</div>
+								: <div className={'button'} onClick={this.handleFollowCreate} style={styles.followButton}>Follow</div>
+							}
+						</div>
+					}
+					
 				</div>
 				
 				<LinkList links={user.links} />
