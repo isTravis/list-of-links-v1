@@ -68,7 +68,7 @@ server.use('/api', (req, res) => {
 });
 
 proxy.on('proxyReq', function(proxyReq, req, res, options) {
-	// console.log(proxyReq);
+	console.log(proxyReq);
   // proxyReq.setHeader('X-Special-Proxy-Header', 'foobar');
 });
 
