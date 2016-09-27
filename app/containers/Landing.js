@@ -48,7 +48,7 @@ export const Landing = React.createClass({
 				}
 				
 
-				<div style={styles.previewsContainer}>
+				<div className={'previews-container'}>
 					{following.map((followedUser, index)=> {
 						return <UserPreview key={'follwedUser-' + index} user={followedUser} />;
 					})}

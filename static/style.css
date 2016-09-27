@@ -88,6 +88,25 @@ label {
 	-webkit-user-select: text;
 }
 
+
+/* ------------ */
+/* Landing Page */
+/* ------------ */
+.previews-container {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	padding-top: 1em;
+	width: calc(100% + 2em);
+	position: relative;
+	left: -1em;
+}
+
+/* ------------ */
+
+
+
 /* ------ */
 /* Loader */
 /* ------ */
