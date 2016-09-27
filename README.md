@@ -14,13 +14,13 @@ Go to `http://localhost:3000/`.
 npm run build
 ```
 
-This will create a `dist/` folder with a `app.min.js` which will be used on any environment which isn't undefined (i.e. not local).
+This will create a `dist/` folder with a minified js bundle which will be used on any environment which isn't undefined (i.e. not local).
 
 ```
 npm run start-prod
 ```
 
-This will build and then run your app with environment set to production, so that `app.min.js` and `config/production.js` are used.
+This will build and then run your app with environment set to production, so that the production bundle and `config/production.js` are used.
 
 ---
 

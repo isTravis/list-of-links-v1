@@ -40,7 +40,6 @@ export const Landing = React.createClass({
 					: <div>
 						<h1>List of Links</h1>
 						<p>Welcome! Please <Link to={'/login'} className={'link'}>Login</Link> or <Link to={'/signup'} className={'link'}>Sign up</Link> to get started</p>
-
 					</div>
 				}
 				

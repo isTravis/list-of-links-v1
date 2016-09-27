@@ -27,13 +27,13 @@ export const InputHeader = React.createClass({
 	handleSubmit: function(evt) {
 		evt.preventDefault();
 		this.props.handleAddLink(this.state.description, this.state.link);
+		
 		const newAddedLinks = this.state.addedLinks;
-		const now = new Date();
 		newAddedLinks.push({
 			title: this.state.description,
 			url: this.state.link,
-			createdAt: now,
-			updatedAt: now
+			createdAt: new Date(),
+			updatedAt: new Date()
 		});
 		this.setState({
 			description: '',
@@ -46,7 +46,7 @@ export const InputHeader = React.createClass({
 		const user = this.props.loginData;
 		return (
 			<div>
-				<div style={styles.container}>
+				<div style={styles.addLinkWrapper}>
 					<Link to={'/' + user.username} style={styles.imageLink}>
 						<img src={user.image} style={styles.image} alt="user" />
 					</Link>
@@ -78,7 +78,7 @@ export const InputHeader = React.createClass({
 export default InputHeader;
 
 styles = {
-	container: {
+	addLinkWrapper: {
 		display: 'table',
 		width: '100%',
 		marginBottom: '1em',

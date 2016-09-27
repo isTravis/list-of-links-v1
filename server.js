@@ -2,6 +2,12 @@ if (process.env.NODE_ENV !== 'production') {
 	require('./config');
 }
 
+if (process.env.NODE_ENV === 'production') {
+	const fs = require('fs');
+	const fileName = fs.readdirSync('./dist/')[0];
+	global.__MAINBUNDLE__ = fileName;
+}
+
 require('babel-core/register');
 
 require.extensions['.css'] = () => { return; };
