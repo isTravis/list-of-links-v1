@@ -5,6 +5,7 @@ let styles;
 export const LinkList = React.createClass({
 	propTypes: {
 		links: PropTypes.array,
+		hideDays: PropTypes.bool,
 	},
 
 	buildDateString: function(date) {
@@ -40,8 +41,16 @@ export const LinkList = React.createClass({
 
 					return (
 						<div key={'day-' + index}>
-							<div style={styles.date}>{dateString}</div>
-							{byDay[day].map((link, linkIndex) => {
+							{!this.props.hideDays &&
+								<div style={styles.date}>{dateString}</div>
+							}
+							
+							{byDay[day].sort((foo, bar) => {
+								// Sort so that most recent is first in array
+								if (foo.createdAt > bar.createdAt) { return -1; }
+								if (foo.createdAt < bar.createdAt) { return 1; }
+								return 0;
+							}).map((link, linkIndex) => {
 								return (
 									<div key={'link-' + linkIndex}>
 										<a className={'userLink'} href={link.url}>

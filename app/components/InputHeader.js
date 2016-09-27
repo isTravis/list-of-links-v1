@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
+import LinkList from '../components/LinkList';
 
 let styles;
 export const InputHeader = React.createClass({
@@ -11,7 +12,8 @@ export const InputHeader = React.createClass({
 	getInitialState() {
 		return {
 			description: '',
-			link: ''
+			link: '',
+			addedLinks: [],
 		};
 	},
 
@@ -25,31 +27,48 @@ export const InputHeader = React.createClass({
 	handleSubmit: function(evt) {
 		evt.preventDefault();
 		this.props.handleAddLink(this.state.description, this.state.link);
+		const newAddedLinks = this.state.addedLinks;
+		const now = new Date();
+		newAddedLinks.push({
+			title: this.state.description,
+			url: this.state.link,
+			createdAt: now,
+			updatedAt: now
+		});
 		this.setState({
 			description: '',
-			link: ''
+			link: '',
+			addedLinks: newAddedLinks
 		});
 	},
 
 	render: function() {
 		const user = this.props.loginData;
 		return (
-			<div style={styles.container}>
-				<Link to={'/' + user.username} style={styles.imageLink}>
-					<img src={user.image} style={styles.image} alt="user" />
-				</Link>
+			<div>
+				<div style={styles.container}>
+					<Link to={'/' + user.username} style={styles.imageLink}>
+						<img src={user.image} style={styles.image} alt="user" />
+					</Link>
 
-				<form onSubmit={this.handleSubmit} style={styles.form}>
+					<form onSubmit={this.handleSubmit} style={styles.form}>
 
-					<input style={styles.input} id={'description'} name={'description'} type="text" placeholder={'Description'} value={this.state.description} onChange={this.descriptionChange} />
-					<input style={styles.input} id={'link'} name={'link'} type="url" placeholder={'URL'} value={this.state.link} onChange={this.linkChange} />
-					<button name={'login'} className={'button'} onClick={this.handleSubmit} style={styles.button}>
-						Add
-					</button>
+						<input style={styles.input} id={'description'} name={'description'} type="text" placeholder={'Description'} value={this.state.description} onChange={this.descriptionChange} />
+						<input style={styles.input} id={'link'} name={'link'} type="url" placeholder={'URL'} value={this.state.link} onChange={this.linkChange} />
+						<button name={'login'} className={'button'} onClick={this.handleSubmit} style={styles.button}>
+							Add
+						</button>
 
-				</form>
-
-
+					</form>
+				</div>
+				
+				{!!this.state.addedLinks.length &&
+					<div>
+						<div style={styles.justAdded}>Just Added</div>
+						<LinkList links={this.state.addedLinks} hideDays={true} />	
+					</div>
+				}
+				
 			</div>
 		);
 	}
@@ -91,6 +110,11 @@ styles = {
 		width: '80px',
 		top: '-1px',
 		cursor: 'pointer',
-	}
+	},
+	justAdded: {
+		fontSize: '1.25em',
+		fontWeight: 'bold',
+		color: '#555',
+	},
 };
 

@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
 import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
 import LinkList from '../components/LinkList';
 import NoMatch from '../containers/NoMatch';
 import Loader from '../components/Loader';
@@ -115,7 +114,7 @@ styles = {
 		display: 'table',
 		paddingBottom: '1em',
 		marginBottom: '1em',
-		borderBottom: '1px solid #555',
+		borderBottom: '1px solid #CCC',
 		width: '100%',
 		overflow: 'hidden',
 	},
