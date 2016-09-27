@@ -15,19 +15,6 @@ export const Landing = React.createClass({
 		dispatch: PropTypes.func,
 	},
 
-	// statics: {
-	//   readyOnActions: function(dispatch) {
-	//     return Promise.all([
-	//       dispatch(getLoginData())
-	//     ]);
-	//   }
-	// },
-
-	// componentDidMount() {
-	//   // Need to check here so that getLoginData doesn't make a fetch twice
-	//   Landing.readyOnActions(this.props.dispatch);
-	// },
-
 	addLink: function(description, link) {
 		this.props.dispatch(createLink(description, link));
 	},
@@ -37,7 +24,7 @@ export const Landing = React.createClass({
 		const following = user.following || [];
 
 		return (
-			<div>
+			<div style={styles.container}>
 				{user.id
 					? <InputHeader loginData={this.props.appData.loginData} handleAddLink={this.addLink} />
 					: <div>
@@ -94,15 +81,6 @@ function mapStateToProps(state) {
 export default connect(mapStateToProps)(Landing);
 
 styles = {
-	previewsContainer: {
-		display: 'flex',
-		flexDirection: 'row',
-		flexWrap: 'wrap',
-		justifyContent: 'space-between',
-		paddingTop: '1em',
-		width: 'calc(100% + 2em)',
-		position: 'relative',
-		left: '-1em',
-	},
+
 };
 

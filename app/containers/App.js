@@ -25,12 +25,6 @@ export const App = React.createClass({
 		}
 	},
 
-	componentDidMount() {
-	// 	// Need to check here so that getLoginData doesn't make a fetch twice
-	// 	App.readyOnActions(this.props.dispatch);
-	// this.props.dispatch(login());
-	},
-
 	handleLogout: function() {
 		this.props.dispatch(logout());
 	},

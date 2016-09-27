@@ -39,21 +39,13 @@ export const InputHeader = React.createClass({
 					<img src={user.image} style={styles.image} alt="user" />
 				</Link>
 
-				{/* <input placeholder={'Description'} type={'text'}/>
-				<input placeholder={'link'} type={'url'}/> */}
-
 				<form onSubmit={this.handleSubmit} style={styles.form}>
 
-					{/* <label htmlFor={'description'}>Description</label> */}
 					<input style={styles.input} id={'description'} name={'description'} type="text" placeholder={'Description'} value={this.state.description} onChange={this.descriptionChange} />
-
-					{/* <label htmlFor={'link'}>Link</label> */}
 					<input style={styles.input} id={'link'} name={'link'} type="url" placeholder={'URL'} value={this.state.link} onChange={this.linkChange} />
-
 					<button name={'login'} className={'button'} onClick={this.handleSubmit} style={styles.button}>
 						Add
 					</button>
-
 
 				</form>
 

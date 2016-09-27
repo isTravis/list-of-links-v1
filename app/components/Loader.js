@@ -5,8 +5,8 @@ export const Loader = React.createClass({
 	render: function() {
 		return (
 			<div className="spinner">
-				<div className="cube1"></div>
-				<div className="cube2"></div>
+				<div className="cube1" />
+				<div className="cube2" />
 			</div>
 		);
 	}
