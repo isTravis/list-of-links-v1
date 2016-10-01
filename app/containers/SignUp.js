@@ -3,6 +3,7 @@ import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
 import { Link, browserHistory } from 'react-router';
 import { signup } from '../actions/signup';
+import { logout } from '../actions/login';
 import ImageCropper from '../components/ImageCropper';
 
 let styles;
@@ -81,11 +82,27 @@ export const SignUp = React.createClass({
 		this.props.dispatch(signup(this.state.username, this.state.name, this.state.email, this.state.password, this.state.userImageURL));
 	},
 
+	handleLogout: function() {
+		this.props.dispatch(logout());
+	},
+
 	render() {
 		const isLoading = null; // this.props.appData && this.props.appData.get('loading');
 		const errorMessage = null; // this.props.appData && this.props.appData.get('error');
 		const redirectRoute = null; // this.props.query && this.props.query.redirect;
 		const redirectQuery = null; // redirectRoute ? '?redirect=' + redirectRoute : '';
+
+		const loginData = this.props.appData.loginData || {};
+		if (loginData.username) {
+			return (
+				<div>
+					<Helmet title={'Login · List of Links'} />
+					<h1>Already logged in</h1>
+					<p>You're alread logged in! If you'd like to sign up a new account, please first logout.</p>
+					<button className={'button'} style={styles.submitButton} onClick={this.handleLogout}>Logout</button>
+				</div>
+			);
+		}
 
 		return (
 			<div>
