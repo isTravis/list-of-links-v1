@@ -15,15 +15,22 @@ export const InputHeader = React.createClass({
 	getInitialState() {
 		return {
 			description: '',
-			link: '',
+			url: '',
 			addedLinks: [],
+			error: undefined,
 		};
+	},
+
+	checkForEnter: function(evt) {
+		if (evt.which === 13) {
+			this.handleSubmit(evt);
+		}
 	},
 
 	linkChange: function(evt) {
 		const linkLowerCase = evt.target.value.toLowerCase();
 		const linkWithHTTP = linkLowerCase.length > 4 && linkLowerCase.substring(0, 4) !== 'http' ? 'http://' + linkLowerCase : linkLowerCase; 
-		this.setState({ link: linkWithHTTP });
+		this.setState({ url: linkWithHTTP });
 	},
 	descriptionChange: function(evt) {
 		this.setState({ description: evt.target.value });
@@ -31,24 +38,30 @@ export const InputHeader = React.createClass({
 
 	handleSubmit: function(evt) {
 		evt.preventDefault();
-		this.props.handleAddLink(this.state.description, this.state.link);
+		if (!this.state.description) { return this.setState({ error: 'Description required' }); }
+		if (!this.state.url) { return this.setState({ error: 'URL required' }); }
+
+		this.props.handleAddLink(this.state.description, this.state.url);
 		
+
 		const newAddedLinks = this.state.addedLinks;
 		newAddedLinks.push({
 			title: this.state.description,
-			url: this.state.link,
+			url: this.state.url,
 			createdAt: new Date(),
 			updatedAt: new Date()
 		});
-		this.setState({
+		return this.setState({
 			description: '',
-			link: '',
-			addedLinks: newAddedLinks
+			url: '',
+			addedLinks: newAddedLinks,
+			error: undefined,
 		});
 	},
 
 	render: function() {
 		const user = this.props.loginData;
+
 		return (
 			<div>
 				<div style={styles.addLinkWrapper}>
@@ -57,17 +70,15 @@ export const InputHeader = React.createClass({
 					</Link>
 
 					<form onSubmit={this.handleSubmit} style={styles.form}>
-
-						<Textarea style={styles.input} id={'description'} name={'description'} type="text" placeholder={'Description'} value={this.state.description} onChange={this.descriptionChange} />
-						<Textarea style={styles.input} id={'link'} name={'link'} type="url" placeholder={'URL'} value={this.state.link} onChange={this.linkChange} />
+						<Textarea style={styles.input} id={'description'} name={'description'} type="text" placeholder={'Description'} value={this.state.description} onKeyPress={this.checkForEnter} onChange={this.descriptionChange} />
+						<Textarea style={styles.input} id={'url'} name={'url'} type="url" placeholder={'URL'} value={this.state.url} onKeyPress={this.checkForEnter} onChange={this.linkChange} />
 						<button name={'login'} className={'button'} onClick={this.handleSubmit} style={styles.button}>
 							Add
 							<ButtonLoader isLoading={this.props.isLoading} />
 						</button>
-
 					</form>
 				</div>
-				
+				<div style={styles.errorMessage}>{this.state.error}</div>
 				{!!this.state.addedLinks.length &&
 					<div>
 						<div style={styles.justAdded}>Just Added</div>
@@ -126,6 +137,11 @@ styles = {
 		fontSize: '1.25em',
 		fontWeight: 'bold',
 		color: '#555',
+	},
+	errorMessage: {
+		color: '#E05151',
+		textAlign: 'right',
+		marginTop: '-1em',
 	},
 };
 
