@@ -15,13 +15,13 @@ export default function reducer(state = defaultState, action) {
 	case SIGNUP_LOAD:
 		return {
 			loading: true,
-			error: false,
+			error: undefined,
 		};
 
 	case SIGNUP_SUCCESS:
 		return {
 			loading: false,
-			error: false
+			error: undefined
 		};
 
 	case SIGNUP_FAIL:

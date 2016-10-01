@@ -7,9 +7,6 @@ export function login() {
 		dispatch({ type: LOGIN_DATA_LOAD });
 
 		return clientFetch('/api/login')
-		.then((response) => {
-			return response.json();
-		})
 		.then((result) => {
 			dispatch({ type: LOGIN_DATA_SUCCESS, result });
 		})

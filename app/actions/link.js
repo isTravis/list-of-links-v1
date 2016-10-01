@@ -17,9 +17,6 @@ export function createLink(description, link) {
 				url: link,
 			})
 		})
-		.then((response) => {
-			return response.json();
-		})
 		.then((result) => {
 			dispatch({ type: CREATE_LINK_SUCCESS, result });
 		})

@@ -5,12 +5,15 @@ import { Link, browserHistory } from 'react-router';
 import { signup } from '../actions/signup';
 import { logout } from '../actions/login';
 import ImageCropper from '../components/ImageCropper';
+import ButtonLoader from '../components/ButtonLoader';
 
 let styles;
 
 export const SignUp = React.createClass({
 	propTypes: {
 		appData: PropTypes.object,
+		signupData: PropTypes.object,
+		loginData: PropTypes.object,
 		query: PropTypes.object,
 		dispatch: PropTypes.func,
 	},
@@ -24,6 +27,7 @@ export const SignUp = React.createClass({
 			userImageFile: null,
 			userImageURL: undefined,
 			userImagePreview: undefined,
+			error: undefined,
 		};
 	},
 
@@ -67,7 +71,6 @@ export const SignUp = React.createClass({
 	},
 
 	userImageUploaded: function(url, preview) {
-		console.log(url);
 		this.setState({ 
 			userImageFile: null, 
 			userImageURL: url,
@@ -79,7 +82,14 @@ export const SignUp = React.createClass({
 
 	handleSubmit: function(evt) {
 		evt.preventDefault();
+		if (!this.state.username) { return this.setState({ error: 'Username is required' }); }
+		if (!this.state.name) { return this.setState({ error: 'Name is required' }); }
+		if (!this.state.email) { return this.setState({ error: 'Email is required' }); }
+		if (!this.state.password) { return this.setState({ error: 'Password is required' }); }
+		if (!this.state.userImageURL) { return this.setState({ error: 'Profile image is required' }); }
+
 		this.props.dispatch(signup(this.state.username, this.state.name, this.state.email, this.state.password, this.state.userImageURL));
+		return this.setState({ error: undefined });
 	},
 
 	handleLogout: function() {
@@ -87,10 +97,10 @@ export const SignUp = React.createClass({
 	},
 
 	render() {
-		const isLoading = null; // this.props.appData && this.props.appData.get('loading');
-		const errorMessage = null; // this.props.appData && this.props.appData.get('error');
+		// const isLoading = this.props.signupData.loading; // this.props.appData && this.props.appData.get('loading');
+		const errorMessage = this.props.signupData.error || this.state.error;
 		const redirectRoute = null; // this.props.query && this.props.query.redirect;
-		const redirectQuery = null; // redirectRoute ? '?redirect=' + redirectRoute : '';
+		const redirectQuery = ''; // redirectRoute ? '?redirect=' + redirectRoute : '';
 
 		const loginData = this.props.appData.loginData || {};
 		if (loginData.username) {
@@ -99,7 +109,10 @@ export const SignUp = React.createClass({
 					<Helmet title={'Login · List of Links'} />
 					<h1>Already logged in</h1>
 					<p>You're alread logged in! If you'd like to sign up a new account, please first logout.</p>
-					<button className={'button'} style={styles.submitButton} onClick={this.handleLogout}>Logout</button>
+					<button className={'button'} style={styles.submitButton} onClick={this.handleLogout}>
+						Logout
+						<ButtonLoader isLoading={this.props.loginData.logoutLoading} />
+					</button>
 				</div>
 			);
 		}
@@ -151,15 +164,14 @@ export const SignUp = React.createClass({
 
 					<button name={'sign up'} className={'button'} style={styles.submitButton} onClick={this.handleSubmit}>
 						Sign Up
+						<ButtonLoader isLoading={this.props.signupData.loading} />
 					</button>
-
-					<div style={styles.loaderContainer}>{isLoading}</div>
 
 					<div style={styles.errorMessage}>{errorMessage}</div>
 
 				</form>
 
-				<Link to={'/signup' + redirectQuery} className={'link'}>
+				<Link to={'/login' + redirectQuery} className={'link'}>
 					Have an Account? Click to Login.
 				</Link>
 
@@ -171,7 +183,9 @@ export const SignUp = React.createClass({
 
 function mapStateToProps(state) {
 	return {
-		appData: state.app
+		appData: state.app,
+		signupData: state.signup,
+		loginData: state.login,
 	};
 }
 
@@ -189,5 +203,12 @@ styles = {
 		height: '270px',
 		width: '450px',
 		border: '1px solid #ccc',
+	},
+	errorMessage: {
+		display: 'inline-block',
+		padding: '0em 2em',
+		position: 'relative',
+		top: '2px',
+		color: '#E05151',
 	},
 };

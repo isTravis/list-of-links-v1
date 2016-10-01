@@ -12,6 +12,7 @@ let styles;
 export const Landing = React.createClass({
 	propTypes: {
 		appData: PropTypes.object,
+		linkData: PropTypes.object,
 		dispatch: PropTypes.func,
 	},
 
@@ -36,7 +37,7 @@ export const Landing = React.createClass({
 		return (
 			<div style={styles.container}>
 				{user.id
-					? <InputHeader loginData={this.props.appData.loginData} handleAddLink={this.addLink} />
+					? <InputHeader loginData={this.props.appData.loginData} handleAddLink={this.addLink} isLoading={this.props.linkData.loading} />
 					: <div>
 						<h1>List of Links</h1>
 						<p>Welcome! Please <Link to={'/login'} className={'link'}>Login</Link> or <Link to={'/signup'} className={'link'}>Sign up</Link> to get started</p>
@@ -89,7 +90,8 @@ export const Landing = React.createClass({
 
 function mapStateToProps(state) {
 	return {
-		appData: state.app
+		appData: state.app,
+		linkData: state.link,
 	};
 }
 

@@ -3,12 +3,14 @@ import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
 import { Link, browserHistory } from 'react-router';
 import { login, logout } from '../actions/login';
+import ButtonLoader from '../components/ButtonLoader';
 
 let styles;
 
 export const Login = React.createClass({
 	propTypes: {
 		appData: PropTypes.object,
+		loginData: PropTypes.object,
 		query: PropTypes.object,
 		dispatch: PropTypes.func,
 	},
@@ -50,10 +52,10 @@ export const Login = React.createClass({
 	},
 
 	render() {
-		const isLoading = null; // this.props.appData && this.props.appData.get('loading');
+		// const isLoading = this.props.loginData.loading; // this.props.appData && this.props.appData.get('loading');
 		const errorMessage = null; // this.props.appData && this.props.appData.get('error');
 		const redirectRoute = null; // this.props.query && this.props.query.redirect;
-		const redirectQuery = null; // redirectRoute ? '?redirect=' + redirectRoute : '';
+		const redirectQuery = ''; // redirectRoute ? '?redirect=' + redirectRoute : '';
 
 		const loginData = this.props.appData.loginData || {};
 		if (loginData.username) {
@@ -62,7 +64,10 @@ export const Login = React.createClass({
 					<Helmet title={'Login · List of Links'} />
 					<h1>Already logged in</h1>
 					<p>You're alread logged in! If you'd like to login with a different account, please first logout.</p>
-					<button className={'button'} style={styles.submitButton} onClick={this.handleLogout}>Logout</button>
+					<button className={'button'} style={styles.submitButton} onClick={this.handleLogout}>
+						Logout
+						<ButtonLoader isLoading={this.props.loginData.logoutLoading} />
+					</button>
 				</div>
 			);
 		}
@@ -88,11 +93,13 @@ export const Login = React.createClass({
 
 					<button name={'login'} className={'button'} style={styles.submitButton} onClick={this.handleSubmit}>
 						Login
+						<ButtonLoader isLoading={this.props.loginData.loginLoading} />
 					</button>
 
-					<div style={styles.loaderContainer}>{isLoading}</div>
-
-					<div style={styles.errorMessage}>{errorMessage}</div>
+					{this.props.loginData.error &&
+						<div style={styles.errorMessage}>Username or Password incorrect</div>	
+					}
+					
 
 				</form>
 
@@ -108,7 +115,8 @@ export const Login = React.createClass({
 
 function mapStateToProps(state) {
 	return {
-		appData: state.app
+		appData: state.app,
+		loginData: state.login,
 	};
 }
 
@@ -120,5 +128,12 @@ styles = {
 		padding: '.5em 1em',
 		display: 'inline-block',
 		margin: '1em 0em',
+	},
+	errorMessage: {
+		display: 'inline-block',
+		padding: '0em 2em',
+		position: 'relative',
+		top: '2px',
+		color: '#E05151',
 	},
 };

@@ -11,9 +11,6 @@ export function getUser(username) {
 		dispatch({ type: GET_USER_LOAD });
 
 		return clientFetch('/api/user/' + username)
-		.then((response) => {
-			return response.json();
-		})
 		.then((result) => {
 			dispatch({ type: GET_USER_SUCCESS, result });
 		})
@@ -38,9 +35,6 @@ export function createLink(description, link) {
 				title: description,
 				url: link,
 			})
-		})
-		.then((response) => {
-			return response.json();
 		})
 		.then((result) => {
 			dispatch({ type: CREATE_LINK_SUCCESS, result });

@@ -20,14 +20,10 @@ export function signup(username, name, email, password, image) {
 				image: image
 			})
 		})
-		.then((response) => {
-			return response.json();
-		})
 		.then((result) => {
 			dispatch({ type: SIGNUP_SUCCESS, result });
 		})
 		.catch((error) => {
-			console.log(error);
 			dispatch({ type: SIGNUP_FAIL, error });
 		});
 	};

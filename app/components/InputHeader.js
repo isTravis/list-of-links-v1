@@ -1,12 +1,14 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
-import LinkList from '../components/LinkList';
 import Textarea from 'react-textarea-autosize';
+import LinkList from '../components/LinkList';
+import ButtonLoader from '../components/ButtonLoader';
 
 let styles;
 export const InputHeader = React.createClass({
 	propTypes: {
 		loginData: PropTypes.object,
+		isLoading: PropTypes.bool,
 		handleAddLink: PropTypes.func,
 	},
 
@@ -60,6 +62,7 @@ export const InputHeader = React.createClass({
 						<Textarea style={styles.input} id={'link'} name={'link'} type="url" placeholder={'URL'} value={this.state.link} onChange={this.linkChange} />
 						<button name={'login'} className={'button'} onClick={this.handleSubmit} style={styles.button}>
 							Add
+							<ButtonLoader isLoading={this.props.isLoading} />
 						</button>
 
 					</form>

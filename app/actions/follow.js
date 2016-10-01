@@ -25,9 +25,6 @@ export function createFollow(followee, lastRead) {
 				lastRead: lastRead,
 			})
 		})
-		.then((response) => {
-			return response.json();
-		})
 		.then((result) => {
 			dispatch({ type: CREATE_FOLLOW_SUCCESS, result });
 		})
@@ -55,9 +52,6 @@ export function updateLastRead(followee) {
 				lastRead: lastRead,
 			})
 		})
-		.then((response) => {
-			return response.json();
-		})
 		.then((result) => {
 			dispatch({ type: UPDATE_LASTREAD_SUCCESS, result });
 		})
@@ -81,9 +75,6 @@ export function destroyFollow(followee) {
 			body: JSON.stringify({
 				followee: followee,
 			})
-		})
-		.then((response) => {
-			return response.json();
 		})
 		.then((result) => {
 			dispatch({ type: DESTROY_FOLLOW_SUCCESS, result, followee });

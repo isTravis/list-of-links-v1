@@ -27,12 +27,18 @@ if (isClient) {
 		return fetch(route, {
 			...opts,
 			credentials: 'same-origin'
+		})
+		.then((response)=> {
+			if (!response.ok) { 
+				return response.json().then(err => { throw err; });
+			}
+			return response.json();
 		});
 	};
 
 	ReactDOM.render(
 		<Provider store={store}>
-			<Router history={browserHistory} routes={routes} onUpdate={logPageView} render={applyRouterMiddleware(useScroll())}/>
+			<Router history={browserHistory} routes={routes} onUpdate={logPageView} render={applyRouterMiddleware(useScroll())} />
 		</Provider>,
 		document.getElementById('root')
 	);
@@ -85,7 +91,13 @@ function serverMiddleware(req, res) {
 			headers: {
 				cookie: req.get('cookie')
 			}
-		});		
+		})
+		.then((response)=> {
+			if (!response.ok) { 
+				return response.json().then(err => { throw err; });
+			}
+			return response.json();
+		});
 	};
 
 	match({ routes, location: req.url }, (error, redirectLocation, renderProps) => {

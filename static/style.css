@@ -39,6 +39,7 @@ input[type=file], input[type=file]:focus {
 	color: white;
 	border: 0px;
 	cursor: pointer;
+	position: relative;
 	-webkit-user-select: none;
 	-moz-user-select: none;
 	-ms-user-select: none;
@@ -185,6 +186,31 @@ input[type=file], input[type=file]:focus {
   } 100% { 
     transform: rotate(-360deg);
     -webkit-transform: rotate(-360deg);
+  }
+}
+/* ------ */
+
+/* ------ */
+/* Button Loader */
+/* ------ */
+.horizontal-progress {
+  -webkit-animation: sk-cubemove .75s infinite linear;
+  animation: sk-cubemove .75s infinite linear;
+}
+
+@-webkit-keyframes sk-cubemove {
+	0% { -webkit-transform: translateX(-100%)}
+	100% { -webkit-transform: translateX(100%)}
+}
+
+@keyframes sk-cubemove {
+  0% { 
+    transform: translateX(-100%);
+    -webkit-transform: translateX(-100%);
+  } 
+  100% { 
+    transform: translateX(100%);
+    -webkit-transform: translateX(100%);
   }
 }
 /* ------ */

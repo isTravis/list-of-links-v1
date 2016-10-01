@@ -21,9 +21,6 @@ export function login(username, password) {
 				password: password,
 			})
 		})
-		.then((response) => {
-			return response.json();
-		})
 		.then((result) => {
 			dispatch({ type: LOGIN_SUCCESS, result });
 		})
@@ -38,9 +35,6 @@ export function logout() {
 		dispatch({ type: LOGOUT_LOAD });
 
 		return clientFetch('/api/logout')
-		.then((response) => {
-			return response.json();
-		})
 		.then((result) => {
 			dispatch({ type: LOGOUT_SUCCESS, result });
 		})
