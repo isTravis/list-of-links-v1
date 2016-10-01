@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import LinkList from '../components/LinkList';
+import Textarea from 'react-textarea-autosize';
 
 let styles;
 export const InputHeader = React.createClass({
@@ -55,8 +56,8 @@ export const InputHeader = React.createClass({
 
 					<form onSubmit={this.handleSubmit} style={styles.form}>
 
-						<input style={styles.input} id={'description'} name={'description'} type="text" placeholder={'Description'} value={this.state.description} onChange={this.descriptionChange} />
-						<input style={styles.input} id={'link'} name={'link'} type="url" placeholder={'URL'} value={this.state.link} onChange={this.linkChange} />
+						<Textarea style={styles.input} id={'description'} name={'description'} type="text" placeholder={'Description'} value={this.state.description} onChange={this.descriptionChange} />
+						<Textarea style={styles.input} id={'link'} name={'link'} type="url" placeholder={'URL'} value={this.state.link} onChange={this.linkChange} />
 						<button name={'login'} className={'button'} onClick={this.handleSubmit} style={styles.button}>
 							Add
 						</button>
@@ -95,13 +96,18 @@ styles = {
 		display: 'inline-block',
 	},
 	input: {
-		height: '3em',
 		marginRight: '1em',
-		width: 'calc(50% - 1em - 40px - 6px)',
+		width: 'calc(50% - 1em - 40px - 6px - 1em)',
+		fontSize: '.85em',
+		resize: 'none',
+		verticalAlign: 'top',
+		padding: '.75em .5em',
+		minHeight: '1em',
 	},
 	form: {
 		display: 'table-cell',
-		verticalAlign: 'middle',
+		verticalAlign: 'top',
+		paddingTop: '.4em',
 	},
 	button: {
 		backgroundColor: 'black',
