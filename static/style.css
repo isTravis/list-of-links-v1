@@ -194,16 +194,16 @@ input[type=file], input[type=file]:focus {
 /* Button Loader */
 /* ------ */
 .horizontal-progress {
-  -webkit-animation: sk-cubemove .75s infinite linear;
-  animation: sk-cubemove .75s infinite linear;
+  -webkit-animation: horizontalMove .75s infinite linear;
+  animation: horizontalMove .75s infinite linear;
 }
 
-@-webkit-keyframes sk-cubemove {
+@-webkit-keyframes horizontalMove {
 	0% { -webkit-transform: translateX(-100%)}
 	100% { -webkit-transform: translateX(100%)}
 }
 
-@keyframes sk-cubemove {
+@keyframes horizontalMove {
   0% { 
     transform: translateX(-100%);
     -webkit-transform: translateX(-100%);
