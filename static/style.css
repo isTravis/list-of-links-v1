@@ -13,6 +13,18 @@ label {
 	display: inline-block;
 }
 
+input, textarea {
+	border: 1px solid #CCC;
+}
+input:focus, input:focus, textarea:focus{
+	outline: none;
+	border: 1px solid #555;
+}
+
+input[type=file], input[type=file]:focus {
+	border: 0px solid black;
+}
+
 .link {
 	text-decoration: none;
 	color: inherit;
