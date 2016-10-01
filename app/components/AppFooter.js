@@ -11,6 +11,7 @@ export const AppFooter = React.createClass({
 				<a href={'https://github.com/isTravis/list-of-links-api'} className={'link'} style={styles.item}>API</a>
 				<a href={'https://github.com/isTravis/list-of-links'} className={'link'} style={styles.item}>Github</a>
 				<Link to={'/about'} className={'link'} style={styles.item}>About</Link>
+				<a href={'mailto:hello@listoflinks.co'} className={'link'} style={styles.item}>Contact</a>
 			</div>
 		);
 	}

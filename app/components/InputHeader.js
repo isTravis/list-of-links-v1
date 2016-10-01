@@ -18,7 +18,9 @@ export const InputHeader = React.createClass({
 	},
 
 	linkChange: function(evt) {
-		this.setState({ link: evt.target.value.toLowerCase() });
+		const linkLowerCase = evt.target.value.toLowerCase();
+		const linkWithHTTP = linkLowerCase.length > 4 && linkLowerCase.substring(0, 4) !== 'http' ? 'http://' + linkLowerCase : linkLowerCase; 
+		this.setState({ link: linkWithHTTP });
 	},
 	descriptionChange: function(evt) {
 		this.setState({ description: evt.target.value });
