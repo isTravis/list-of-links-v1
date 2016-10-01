@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { s3Upload } from '../utils/uploadFile';
 import ImageCropperEditor from './ImageCropperEditor';
+import ButtonLoader from './ButtonLoader';
 
 let styles = {};
 
@@ -81,12 +82,8 @@ export const ImageCropper = React.createClass({
 					</div>
 					<div className={'button'} style={styles.option} key="userUploadSave" onClick={this.handleSaveImage}>
 						Save Image
+						<ButtonLoader isLoading={this.state.isUploading} />
 					</div>
-				</div>
-				<div style={styles.loaderWrapper}>
-					{this.state.isUploading &&
-						<span>Uploading</span>
-					}
 				</div>
 
 
@@ -103,16 +100,6 @@ styles = {
 		height: '100%',
 		position: 'relative',
 		overflow: 'hidden',
-	},
-	loaderWrapper: {
-		position: 'absolute',
-		width: '40px',
-		bottom: 0,
-		right: 0,
-		'@media screen and (min-resolution: 3dppx), screen and (max-width: 767px)': {
-			position: 'static',
-			margin: '0 auto',
-		},
 	},
 	avatarWrapper: {
 		height: 200,
@@ -155,7 +142,7 @@ styles = {
 		float: 'right',
 		textAlign: 'center',
 		marginBottom: '20px',
-		padding: '.25em 0em',
+		padding: '.5em 0em',
 		// textAlign: 'right',
 		// fontSize: '25px',
 		// color: '#555',

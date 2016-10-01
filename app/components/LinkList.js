@@ -84,6 +84,7 @@ styles = {
 		fontSize: '1.25em',
 		fontWeight: 'bold',
 		color: '#555',
+		marginTop: '1em',
 	},
 	noLinks: {
 		fontSize: '1.25em',

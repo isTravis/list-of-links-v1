@@ -57,7 +57,7 @@ input[type=file], input[type=file]:focus {
 .userLink {
 	text-decoration: none;
 	color: black;
-	padding: .5em 0em .5em 1.5em;
+	padding: .25em 0em .25em 1.5em;
 	display: inline-block;
 	position: relative;
 }
@@ -75,8 +75,8 @@ input[type=file], input[type=file]:focus {
 	color: #999;
 	font-size: 0.8em; 
 	text-decoration: none;
-	position: absolute;
-	white-space: nowrap;
+	padding: 0em .5em;
+	display: inline-block;
 }
 .userLink:hover .userLinkDate {
 	opacity: 1;
