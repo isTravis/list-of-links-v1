@@ -44,7 +44,7 @@ export const UserPreview = React.createClass({
 						<div style={styles.count}>{newLinkCount}</div>
 					}
 				</Link>
-				{this.props.handleFollowCreate &&
+				{this.props.handleFollowCreate && this.props.handleFollowDestroy &&
 					<div style={styles.followButton} onClick={this.handleFollowClick}>
 						{this.props.isFollowing
 							? 'Following'

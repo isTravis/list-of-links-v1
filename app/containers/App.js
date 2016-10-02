@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
-import { login } from '../actions/app';
+import { login, getRecent } from '../actions/app';
 import AppNav from '../components/AppNav';
 import AppFooter from '../components/AppFooter';
 import { logout } from '../actions/login';
@@ -20,7 +20,8 @@ export const App = React.createClass({
 	statics: {
 		readyOnActions: function(dispatch) {
 			return Promise.all([
-				dispatch(login())
+				dispatch(login()),
+				dispatch(getRecent())
 			]);
 		}
 	},

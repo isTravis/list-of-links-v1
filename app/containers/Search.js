@@ -49,7 +49,7 @@ export const Search = React.createClass({
 				
 				<input id={'search'} name={'search'} type="text" placeholder={'Search for Users'} style={styles.searchBar} value={this.state.search} onChange={this.searchUpdate} />
 
-				{this.state.search &&
+				{this.state.search && !!searchResults.length &&
 					<div className={'previews-container'}>
 						{searchResults.filter((thisUser)=> {
 							return thisUser.id !== loginData.id;

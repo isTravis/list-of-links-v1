@@ -2,6 +2,10 @@ import {
 	LOGIN_DATA_LOAD,
 	LOGIN_DATA_SUCCESS,
 	LOGIN_DATA_FAIL,
+
+	// GET_RECENT_LOAD,
+	GET_RECENT_SUCCESS,
+	// GET_RECENT_FAIL,
 } from '../actions/app';
 
 import {
@@ -28,6 +32,7 @@ const defaultState = {
 	loading: false,
 	error: undefined,
 	loginData: {},
+	recentUsers: [],
 };
 
 export default function reducer(state = defaultState, action) {
@@ -120,6 +125,12 @@ export default function reducer(state = defaultState, action) {
 					return follow.id !== action.followee;
 				})
 			}
+		};
+
+	case GET_RECENT_SUCCESS:
+		return {
+			...state,
+			recentUsers: action.result
 		};
 
 	default:
