@@ -42,7 +42,13 @@ export const User = React.createClass({
 		}
 		const thisUserData = (this.props.userData && this.props.userData.userData) || {};
 		const nextUserData = (nextProps.userData && nextProps.userData.userData) || {};
-		if (!thisUserData.id && nextUserData.id) {
+
+		const loginData = nextProps.appData.loginData || {};
+		const following = loginData.following || [];
+		const followingIDs = following.map((followee)=> {
+			return followee.id;
+		});
+		if (!thisUserData.id && nextUserData.id && followingIDs.includes(nextUserData.id)) {
 			this.props.dispatch(updateLastRead(nextProps.userData.userData.id));
 		}
 	},
@@ -61,8 +67,8 @@ export const User = React.createClass({
 		const following = this.props.appData.loginData.following || [];
 		const username = this.props.params.id;
 		const user = this.props.userData.userData || {};
-		const userFollowers = user.followers;
-		const userFollowing = user.following;
+		const userFollowers = user.followers || [];
+		const userFollowing = user.following || [];
 
 		const meta = this.props.params.meta;
 		const isSelf = this.props.appData.loginData.username === this.props.params.id;
