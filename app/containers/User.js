@@ -41,7 +41,7 @@ export const User = React.createClass({
 		if (this.props.params.id !== nextProps.params.id) {
 			User.readyOnActions(nextProps.dispatch, nextProps.params);	
 		}
-		const thisUserData = (this.props.userData && this.props.userData.userData) || {};
+		// const thisUserData = (this.props.userData && this.props.userData.userData) || {};
 		const nextUserData = (nextProps.userData && nextProps.userData.userData) || {};
 
 		const loginData = nextProps.appData.loginData || {};
@@ -49,7 +49,8 @@ export const User = React.createClass({
 		const followingIDs = following.map((followee)=> {
 			return followee.id;
 		});
-		if (!thisUserData.id && nextUserData.id && followingIDs.includes(nextUserData.id)) {
+		// if (!thisUserData.id && nextUserData.id && followingIDs.includes(nextUserData.id)) {
+		if (nextUserData.id && followingIDs.includes(nextUserData.id)) {
 			this.props.dispatch(updateLastRead(nextProps.userData.userData.id));
 		}
 	},
