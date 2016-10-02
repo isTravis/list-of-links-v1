@@ -25,7 +25,7 @@ export const Root = React.createClass({
 	render() {
 		const head = this.props.head;
 		// In production, we load the CSS file to avoid flicker. In dev, we import it to have HMR work.
-		const cssString = process.env.NODE_ENV === 'production' ? <link href="static/style.css" rel="stylesheet" type="text/css" /> : null;
+		const cssString = process.env.NODE_ENV === 'production' ? <link href="/static/style.css" rel="stylesheet" type="text/css" /> : null;
 
 		return (
 			<html lang="en">
