@@ -16,7 +16,7 @@ const isClient = typeof document !== 'undefined';
 if (isClient) {
 	const store = configureStore(window.__INITIAL_STATE__);
 	
-	ga.initialize('UA-83907075-1');
+	ga.initialize('UA-85097176-1');
 
 	function logPageView() {
 		ga.set({ page: window.location.pathname });
