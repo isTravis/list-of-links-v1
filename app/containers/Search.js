@@ -5,6 +5,7 @@ import { Link } from 'react-router';
 import { search } from '../actions/search';
 import { UserPreview } from '../components/UserPreview';
 import { Loader } from '../components/Loader';
+import { createFollow, destroyFollow } from '../actions/follow';
 
 let styles;
 
@@ -26,9 +27,21 @@ export const Search = React.createClass({
 		this.props.dispatch(search(evt.target.value));	
 	},
 
+	handleFollowCreate: function(followeeID) {
+		this.props.dispatch(createFollow(followeeID, undefined));
+	},
+
+	handleFollowDestroy: function(followeeID) {
+		this.props.dispatch(destroyFollow(followeeID));
+	},
+
 	render() {
 
 		const loginData = this.props.appData.loginData || {};
+		const followingArray = loginData.following || [];
+		const followingIDs = followingArray.map((followee)=> {
+			return followee.id;
+		});
 		const searchResults = this.props.searchData.searchResults || [];
 		return (
 			<div>
@@ -36,12 +49,24 @@ export const Search = React.createClass({
 				
 				<input id={'search'} name={'search'} type="text" placeholder={'Search for Users'} style={styles.searchBar} value={this.state.search} onChange={this.searchUpdate} />
 
-				<div className={'previews-container'}>
-					{searchResults.map((thisUser, index)=> {
-						return <UserPreview key={'follwerUser-' + index} user={thisUser} noBadge={true} />;
-					})}
-				</div>
-
+				{this.state.search &&
+					<div className={'previews-container'}>
+						{searchResults.filter((thisUser)=> {
+							return thisUser.id !== loginData.id;
+						}).map((thisUser, index)=> {
+							return (
+								<UserPreview 
+									key={'follwerUser-' + index} 
+									user={thisUser} 
+									noBadge={true} 
+									handleFollowCreate={this.handleFollowCreate}
+									handleFollowDestroy={this.handleFollowDestroy}
+									isFollowing={followingIDs.includes(thisUser.id)} />
+							); 
+						})}
+					</div>
+				}
+				
 				{!this.state.search && 
 					<div style={styles.noLinks}>
 						Type a query above to search for users

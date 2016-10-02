@@ -7,10 +7,13 @@ export const UserPreview = React.createClass({
 	propTypes: {
 		user: PropTypes.object,
 		noBadge: PropTypes.bool,
+		handleFollowCreate: PropTypes.func,
+		handleFollowDestroy: PropTypes.func,
+		isFollowing: PropTypes.bool,
 	},
 
 	calculateLinkCount: function(user) {
-		const lastRead = user.Follow && user.Follow.lastRead;
+		const lastRead = (user.Follow && user.Follow.lastRead) || new Date(1970).toISOString();
 		return user.links.reduce((previousVal, current) => {
 			if (current.createdAt > lastRead) {
 				return previousVal + 1;	
@@ -19,9 +22,18 @@ export const UserPreview = React.createClass({
 		}, 0);
 	},
 
+	handleFollowClick: function() {
+		if (this.props.isFollowing) {
+			this.props.handleFollowDestroy(this.props.user.id);
+		} else {
+			this.props.handleFollowCreate(this.props.user.id);
+		}
+	},
+
 	render: function() {
 		const user = this.props.user || {};
 		const newLinkCount = this.props.noBadge ? 0 : this.calculateLinkCount(user);
+
 
 		return (
 			<div style={styles.container}>
@@ -32,6 +44,14 @@ export const UserPreview = React.createClass({
 						<div style={styles.count}>{newLinkCount}</div>
 					}
 				</Link>
+				{this.props.handleFollowCreate &&
+					<div style={styles.followButton} onClick={this.handleFollowClick}>
+						{this.props.isFollowing
+							? 'Following'
+							: 'Follow'
+						}
+					</div>
+				}
 			</div>
 		);
 	}
@@ -76,4 +96,18 @@ styles = {
 		left: '150px',
 		boxShadow: '0px 0px 20px white',
 	},
+	followButton: {
+		position: 'absolute',
+		textAlign: 'center',
+		width: 'calc(150px - 2em)',
+		backgroundColor: 'rgba(0,0,0,0.85)',
+		color: 'white',
+		padding: '.5em 1em',
+		cursor: 'pointer',
+		lineHeight: '1em',
+		fontSize: '0.85em',
+		top: 'calc(150px - 2em + 1px)',
+		left: 'calc(50% - 75px)',
+		boxShadow: '0px 0px 20px white',
+	}
 };
