@@ -26,9 +26,6 @@ export const Landing = React.createClass({
 	componentWillMount() {
 		// So that recentUsers don't hop between the following and 'more to follow'
 		// section, store them in the state, so they can be followed and unfollowed sanely
-		const test = [1,2,3];
-		console.log(test.includes(2));
-		
 		const user = this.props.appData.loginData || {};
 		const following = user.following || [];
 		const followingIDs = following.map((followee)=> {

@@ -49,8 +49,8 @@ export const User = React.createClass({
 		const followingIDs = following.map((followee)=> {
 			return followee.id;
 		});
-		// if (!thisUserData.id && nextUserData.id && followingIDs.includes(nextUserData.id)) {
-		if (nextUserData.id && followingIDs.includes(nextUserData.id)) {
+		if (!nextProps.userData.setLastRead && nextUserData.id && followingIDs.includes(nextUserData.id)) {
+			console.log(nextProps.userData);
 			this.props.dispatch(updateLastRead(nextProps.userData.userData.id));
 		}
 	},
