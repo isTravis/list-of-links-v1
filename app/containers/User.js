@@ -1,9 +1,11 @@
 import React, { PropTypes } from 'react';
 import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 import LinkList from '../components/LinkList';
 import NoMatch from '../containers/NoMatch';
 import Loader from '../components/Loader';
+import UserPreview from '../components/UserPreview';
 import { getUser } from '../actions/user';
 import { createFollow, updateLastRead, destroyFollow } from '../actions/follow';
 
@@ -35,6 +37,9 @@ export const User = React.createClass({
 	},
 
 	componentWillReceiveProps(nextProps) {
+		if (this.props.params.id !== nextProps.params.id) {
+			User.readyOnActions(nextProps.dispatch, nextProps.params);	
+		}
 		const thisUserData = (this.props.userData && this.props.userData.userData) || {};
 		const nextUserData = (nextProps.userData && nextProps.userData.userData) || {};
 		if (!thisUserData.id && nextUserData.id) {
@@ -54,7 +59,12 @@ export const User = React.createClass({
 	
 	render() {
 		const following = this.props.appData.loginData.following || [];
-		const user = this.props.userData.userData;
+		const username = this.props.params.id;
+		const user = this.props.userData.userData || {};
+		const userFollowers = user.followers;
+		const userFollowing = user.following;
+
+		const meta = this.props.params.meta;
 		const isSelf = this.props.appData.loginData.username === this.props.params.id;
 		const isFollowed = following.reduce((previousVal, current) => {
 			if (current.username === this.props.params.id) {
@@ -63,7 +73,8 @@ export const User = React.createClass({
 			return false || previousVal;
 		}, false);
 
-		if (!user) {
+
+		if (!user || (meta && meta !== 'followers' && meta !== 'following')) {
 			return <NoMatch />;
 		}
 
@@ -77,10 +88,19 @@ export const User = React.createClass({
 				
 				<div style={styles.header} className={'user-header'}>
 					<div style={styles.imageWrapper}>
-						<img style={styles.image} src={user.image} alt="user" />
+						<Link to={'/' + username}>
+							<img style={styles.image} src={user.image} alt="user" />
+						</Link>
+						
 					</div>
 					<div style={styles.userDetails}>
-						<div style={styles.name} className={'user-name'}>{user.name}</div>
+						<div style={styles.name} className={'user-name'}>
+							<Link className={'link'} to={'/' + username}>{user.name}</Link>
+						</div>
+						<div style={styles.links}>
+							<Link className={'link'} style={styles.link} to={'/' + username + '/following'}>Following</Link>
+							<Link className={'link'} style={styles.link} to={'/' + username + '/followers'}>Followers</Link>
+						</div>
 					</div>
 
 					{!isSelf &&
@@ -94,7 +114,46 @@ export const User = React.createClass({
 					
 				</div>
 				
-				<LinkList links={user.links} />
+				{!meta &&
+					<LinkList links={user.links} />
+				}
+
+				{meta === 'following' &&
+					<div>
+						<h2>Following</h2>
+						<div className={'previews-container'}>
+							{userFollowing.map((thisUser, index)=> {
+								return <UserPreview key={'follwedUser-' + index} user={thisUser} noBadge={true} />;
+							})}
+						</div>
+
+						{userFollowing.length === 0 && 
+							<div style={styles.noLinks}>
+								Not following anyone yet
+							</div>
+						}
+					</div>
+					
+				}
+
+				{meta === 'followers' &&
+					<div>
+						<h2>Followers</h2>
+						<div className={'previews-container'}>
+							{userFollowers.map((thisUser, index)=> {
+								return <UserPreview key={'follwerUser-' + index} user={thisUser} noBadge={true} />;
+							})}
+						</div>
+
+						{userFollowers.length === 0 && 
+							<div style={styles.noLinks}>
+								No followers yet
+							</div>
+						}
+					</div>
+					
+				}
+				
 			</div>
 		);
 	}
@@ -134,6 +193,12 @@ styles = {
 		fontWeight: 'bold',
 		paddingLeft: '.25em',
 	},
+	links: {
+		paddingLeft: '1em',
+	},
+	link: {
+		paddingRight: '1em',
+	},
 	followWrapper: {
 		display: 'table-cell',
 		verticalAlign: 'middle',	
@@ -143,6 +208,13 @@ styles = {
 	followButton: {
 		whiteSpace: 'nowrap',
 		padding: '.25em .5em',
+	},
+	noLinks: {
+		fontSize: '1.25em',
+		fontWeight: 'bold',
+		color: '#555',
+		textAlign: 'center',
+		padding: '3em 0em',
 	},
 
 };

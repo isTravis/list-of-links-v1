@@ -66,6 +66,7 @@ styles = {
 		zIndex: 10,
 		position: 'absolute',
 		lineHeight: '1em',
+		right: 0,
 	},
 	navMenuItem: {
 		cursor: 'pointer',

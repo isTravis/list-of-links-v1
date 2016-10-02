@@ -6,6 +6,7 @@ let styles;
 export const UserPreview = React.createClass({
 	propTypes: {
 		user: PropTypes.object,
+		noBadge: PropTypes.bool,
 	},
 
 	calculateLinkCount: function(user) {
@@ -20,7 +21,7 @@ export const UserPreview = React.createClass({
 
 	render: function() {
 		const user = this.props.user || {};
-		const newLinkCount = this.calculateLinkCount(user);
+		const newLinkCount = this.props.noBadge ? 0 : this.calculateLinkCount(user);
 
 		return (
 			<div style={styles.container}>

@@ -55,33 +55,6 @@ export const Landing = React.createClass({
 					}).map((followedUser, index)=> {
 						return <UserPreview key={'follwedUser-' + index} user={followedUser} />;
 					})}
-					{following.map((followedUser, index)=> {
-						return <UserPreview key={'follwedUser-' + index} user={followedUser} />;
-					})}
-					{following.map((followedUser, index)=> {
-						return <UserPreview key={'follwedUser-' + index} user={followedUser} />;
-					})}
-					{following.map((followedUser, index)=> {
-						return <UserPreview key={'follwedUser-' + index} user={followedUser} />;
-					})}
-					{following.map((followedUser, index)=> {
-						return <UserPreview key={'follwedUser-' + index} user={followedUser} />;
-					})}
-					{following.map((followedUser, index)=> {
-						return <UserPreview key={'follwedUser-' + index} user={followedUser} />;
-					})}
-					{following.map((followedUser, index)=> {
-						return <UserPreview key={'follwedUser-' + index} user={followedUser} />;
-					})}
-					{following.map((followedUser, index)=> {
-						return <UserPreview key={'follwedUser-' + index} user={followedUser} />;
-					})}
-					{following.map((followedUser, index)=> {
-						return <UserPreview key={'follwedUser-' + index} user={followedUser} />;
-					})}
-					{following.map((followedUser, index)=> {
-						return <UserPreview key={'follwedUser-' + index} user={followedUser} />;
-					})}
 				</div>
 			</div>
 		);

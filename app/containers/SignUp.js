@@ -133,7 +133,7 @@ export const SignUp = React.createClass({
 
 					<div>
 						<label style={styles.label} htmlFor={'name'}>Name</label>
-						<input id={'name'} name={'name'} type="name" style={styles.input} value={this.state.name} onChange={this.nameChange} />
+						<input id={'name'} name={'name'} type="text" style={styles.input} value={this.state.name} onChange={this.nameChange} />
 					</div>
 
 					<div>
