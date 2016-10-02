@@ -7,6 +7,7 @@ import NoMatch from '../containers/NoMatch';
 import Loader from '../components/Loader';
 import UserPreview from '../components/UserPreview';
 import { getUser } from '../actions/user';
+import { editLink, destroyLink } from '../actions/link';
 import { createFollow, updateLastRead, destroyFollow } from '../actions/follow';
 
 let styles;
@@ -62,16 +63,25 @@ export const User = React.createClass({
 		const followeeID = this.props.userData.userData.id;
 		this.props.dispatch(destroyFollow(followeeID));
 	},
+
+	handleLinkEdit: function(linkID, description, url) {
+		this.props.dispatch(editLink(linkID, description, url));
+	},
+
+	handleLinkDelete: function(linkID) {
+		this.props.dispatch(destroyLink(linkID));
+	},
 	
 	render() {
+		const isSelf = this.props.appData.loginData.username === this.props.params.id;
 		const following = this.props.appData.loginData.following || [];
 		const username = this.props.params.id;
-		const user = this.props.userData.userData || {};
+		const user = (isSelf ? this.props.appData.loginData : this.props.userData.userData) || {};
 		const userFollowers = user.followers || [];
 		const userFollowing = user.following || [];
 
 		const meta = this.props.params.meta;
-		const isSelf = this.props.appData.loginData.username === this.props.params.id;
+		
 		const isFollowed = following.reduce((previousVal, current) => {
 			if (current.username === this.props.params.id) {
 				return true;
@@ -121,7 +131,13 @@ export const User = React.createClass({
 				</div>
 				
 				{!meta &&
-					<LinkList links={user.links} />
+					<div>
+						{isSelf
+							? <LinkList links={user.links} handleLinkEdit={this.handleLinkEdit} handleLinkDelete={this.handleLinkDelete} />
+							: <LinkList links={user.links} />
+						}
+					</div>
+					
 				}
 
 				{meta === 'following' &&

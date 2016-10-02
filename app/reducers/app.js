@@ -19,7 +19,9 @@ import {
 } from '../actions/login';
 
 import {
-	CREATE_LINK_SUCCESS
+	CREATE_LINK_SUCCESS,
+	EDIT_LINK_SUCCESS,
+	DESTROY_LINK_SUCCESS,
 } from '../actions/link';
 
 import {
@@ -36,6 +38,9 @@ const defaultState = {
 };
 
 export default function reducer(state = defaultState, action) {
+	const loginData = state.loginData || {};
+	const links = loginData.links || [];
+
 	switch (action.type) {
 		
 	case LOGIN_DATA_LOAD:
@@ -74,14 +79,42 @@ export default function reducer(state = defaultState, action) {
 		};
 
 	case CREATE_LINK_SUCCESS: 
-		const loginData = state.loginData || {};
-		const links = loginData.links || [];
 		links.push(action.result);
 		return {
 			...state,
 			loginData: {
 				...loginData,
 				links: links,
+			}
+		};
+	case EDIT_LINK_SUCCESS: 
+		const newLinks = links.map((link)=> {
+			if (link.id === action.id) {
+				return {
+					...link,
+					description: action.description,
+					url: action.url
+				};
+			}
+			return link;
+		});
+		return {
+			...state,
+			loginData: {
+				...loginData,
+				links: newLinks,
+			}
+		};
+
+	case DESTROY_LINK_SUCCESS: 
+		const filteredLinks = links.filter((link)=> {
+			return link.id !== action.id;
+		});
+		return {
+			...state,
+			loginData: {
+				...loginData,
+				links: filteredLinks,
 			}
 		};
 

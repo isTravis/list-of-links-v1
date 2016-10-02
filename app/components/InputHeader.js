@@ -28,8 +28,8 @@ export const InputHeader = React.createClass({
 	},
 
 	linkChange: function(evt) {
-		const linkLowerCase = evt.target.value.toLowerCase();
-		const linkWithHTTP = linkLowerCase.length > 4 && linkLowerCase.substring(0, 4) !== 'http' ? 'http://' + linkLowerCase : linkLowerCase; 
+		const targetLink = evt.target.value;
+		const linkWithHTTP = targetLink.length > 4 && targetLink.substring(0, 4) !== 'http' ? 'http://' + targetLink : targetLink; 
 		this.setState({ url: linkWithHTTP });
 	},
 	descriptionChange: function(evt) {
@@ -46,7 +46,7 @@ export const InputHeader = React.createClass({
 
 		const newAddedLinks = this.state.addedLinks;
 		newAddedLinks.push({
-			title: this.state.description,
+			description: this.state.description,
 			url: this.state.url,
 			createdAt: new Date(),
 			updatedAt: new Date()
