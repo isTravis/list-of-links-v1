@@ -101,6 +101,18 @@ input[type=file], input[type=file]:focus {
 	-webkit-user-select: text;
 }
 
+@media screen and (min-resolution: 3dppx), screen and (max-width: 767px) {
+	.hide-on-mobile {
+		display: none !important;
+	}
+	.full-on-mobile {
+		display: block !important;
+		width: calc(100% - 2em) !important;
+		padding-left: 1em !important;
+		padding-right: 1em !important;
+		margin: .5em auto !important;
+	}
+}
 
 /* ------------ */
 /* Landing Page */

@@ -65,14 +65,14 @@ export const InputHeader = React.createClass({
 		return (
 			<div>
 				<div style={styles.addLinkWrapper}>
-					<Link to={'/' + user.username} style={styles.imageLink}>
+					<Link to={'/' + user.username} style={styles.imageLink} className={'hide-on-mobile'}>
 						<img src={user.image} style={styles.image} alt="user" />
 					</Link>
 
 					<form onSubmit={this.handleSubmit} style={styles.form}>
-						<Textarea style={styles.input} id={'description'} name={'description'} type="text" placeholder={'Description'} value={this.state.description} onKeyPress={this.checkForEnter} onChange={this.descriptionChange} />
-						<Textarea style={styles.input} id={'url'} name={'url'} type="url" placeholder={'URL'} value={this.state.url} onKeyPress={this.checkForEnter} onChange={this.linkChange} />
-						<button name={'login'} className={'button'} onClick={this.handleSubmit} style={styles.button}>
+						<Textarea className={'full-on-mobile'} style={styles.input} id={'description'} name={'description'} type="text" placeholder={'Description'} value={this.state.description} onKeyPress={this.checkForEnter} onChange={this.descriptionChange} />
+						<Textarea className={'full-on-mobile'} style={styles.input} id={'url'} name={'url'} type="url" placeholder={'URL'} value={this.state.url} onKeyPress={this.checkForEnter} onChange={this.linkChange} />
+						<button name={'login'} className={'button full-on-mobile'} onClick={this.handleSubmit} style={styles.button}>
 							Add
 							<ButtonLoader isLoading={this.props.isLoading} />
 						</button>

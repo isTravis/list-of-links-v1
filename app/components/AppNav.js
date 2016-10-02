@@ -62,7 +62,7 @@ styles = {
 	navMenu: {
 		backgroundColor: '#F5F5F5',
 		border: '1px solid #DDD',
-		padding: '1em .25em 0em 2em',
+		padding: '0.5em .5em',
 		zIndex: 10,
 		position: 'absolute',
 		lineHeight: '1em',
@@ -70,9 +70,12 @@ styles = {
 	},
 	navMenuItem: {
 		cursor: 'pointer',
-		paddingBottom: '.5em',
+		// paddingBottom: '.5em',
+		padding: '.5em 0em',
+		minWidth: '100px',
 		color: 'black',
 		textDecoration: 'none',
-		display: 'block'
+		display: 'block',
+		// textAlign: 'left',
 	}
 };

@@ -131,7 +131,7 @@ export const LinkList = React.createClass({
 											</div>
 										</a>
 
-										{this.state.activeEdit === link.id &&
+										{this.state.activeEdit && this.state.activeEdit === link.id &&
 											<div>
 												<form onSubmit={this.confirmEdit} style={styles.form}>
 													<Textarea style={styles.input} id={'description'} name={'description'} type="text" placeholder={'Description'} value={this.state.activeEditDescription} onKeyPress={this.checkForEnter} onChange={this.descriptionChange} />
@@ -144,7 +144,7 @@ export const LinkList = React.createClass({
 											</div>
 										}
 
-										{this.state.activeDelete === link.id &&
+										{this.state.activeDelete && this.state.activeDelete === link.id &&
 											<div>
 												<button onClick={this.confirmDelete} className={'button'} style={styles.deleteButton}>Confirm Delete</button>
 												<button onClick={this.cancelDelete} className={'button'} style={styles.deleteButton}>Cancel</button>
