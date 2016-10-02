@@ -68,40 +68,52 @@ export const Landing = React.createClass({
 			return followee.id;
 		});
 
-		// const recentUsers = this.props.appData.recentUsers || [];
-		// const uniqueRecent = recentUsers.filter((recentUser)=> {
-		// 	return !followingIDs.includes(recentUser.id) && recentUser.id !== user.id;
-		// });
 		return (
 			<div style={styles.container}>
 				{user.id
 					? <InputHeader loginData={this.props.appData.loginData} handleAddLink={this.addLink} isLoading={this.props.linkData.loading} />
 					: <div>
 						<h1>List of Links</h1>
-						<p>Welcome! Please <Link to={'/login'} className={'link'}>Login</Link> or <Link to={'/signup'} className={'link'}>Sign up</Link> to get started</p>
+						<p>A simple tool for collecting and sharing a list of links</p>
+
+						<p><Link to={'/login'} className={'link'}>Login</Link> or <Link to={'/signup'} className={'link'}>Sign up</Link></p>
+						
+						<div className={'previews-container'}>
+							{this.state.recentUsers.map((recentUser, index)=> {
+								return (
+									<UserPreview 
+										key={'recentUser-' + index} 
+										user={recentUser} 
+										noBadge={true} />
+								);
+							})}
+						</div>
+
 					</div>
 				}
 				
 
-				<div className={'previews-container'}>
-					{following.sort((foo, bar)=> {
-						const fooCount = this.calculateLinkCount(foo);
-						const barCount = this.calculateLinkCount(bar);
-						if (fooCount > barCount) { return -1; }
-						if (fooCount < barCount) { return 1; }
-						return 0;
-					}).map((followedUser, index)=> {
-						return <UserPreview key={'follwedUser-' + index} user={followedUser} />;
-					})}
-				</div>
+				{user.id && 
+					<div className={'previews-container'}>
+						{following.sort((foo, bar)=> {
+							const fooCount = this.calculateLinkCount(foo);
+							const barCount = this.calculateLinkCount(bar);
+							if (fooCount > barCount) { return -1; }
+							if (fooCount < barCount) { return 1; }
+							return 0;
+						}).map((followedUser, index)=> {
+							return <UserPreview key={'follwedUser-' + index} user={followedUser} />;
+						})}
+					</div>
+				}
 
-				{following.length === 0 &&
+				{user.id && following.length === 0 &&
 					<div style={styles.noLinks}>
 						Not following anyone yet
 					</div>
 				}
 
-				{!!this.state.recentUsers.length &&
+				{user.id && !!this.state.recentUsers.length &&
 					<div style={styles.recentSection}>
 						<h2>More to Follow</h2>
 						<div className={'previews-container'}>
@@ -110,9 +122,9 @@ export const Landing = React.createClass({
 									<UserPreview 
 										key={'recentUser-' + index} 
 										user={recentUser} 
-										noBadge={true}
-										handleFollowCreate={this.handleFollowCreate}
-										handleFollowDestroy={this.handleFollowDestroy}
+										noBadge={true} 
+										handleFollowCreate={this.handleFollowCreate} 
+										handleFollowDestroy={this.handleFollowDestroy} 
 										isFollowing={followingIDs.includes(recentUser.id)} />
 								);
 							})}
