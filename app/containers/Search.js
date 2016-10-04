@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
+import { browserHistory } from 'react-router';
 import { search } from '../actions/search';
 import { UserPreview } from '../components/UserPreview';
 import { Loader } from '../components/Loader';
@@ -23,12 +23,15 @@ export const Search = React.createClass({
 	},
 	
 	searchUpdate: function(evt) {
-		this.setState({search: evt.target.value});
+		this.setState({ search: evt.target.value });
 		this.props.dispatch(search(evt.target.value));	
 	},
 
 	handleFollowCreate: function(followeeID) {
-		this.props.dispatch(createFollow(followeeID, undefined));
+		const loginData = this.props.appData.loginData || {};
+		if (!loginData.id) { return browserHistory.push('/login'); }
+
+		return this.props.dispatch(createFollow(followeeID, undefined));
 	},
 
 	handleFollowDestroy: function(followeeID) {

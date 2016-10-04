@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import LinkList from '../components/LinkList';
 import NoMatch from '../containers/NoMatch';
 import Loader from '../components/Loader';
@@ -56,6 +56,9 @@ export const User = React.createClass({
 	},
 
 	handleFollowCreate: function() {
+		const loginData = this.props.appData.loginData || {};
+		if (!loginData.id) { return browserHistory.push('/login'); }
+
 		const followeeID = this.props.userData.userData.id;
 		this.props.dispatch(createFollow(followeeID, Date.now()));
 	},

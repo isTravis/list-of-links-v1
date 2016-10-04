@@ -6,6 +6,7 @@ import Landing from './containers/Landing';
 import User from './containers/User';
 import Login from './containers/Login';
 import Search from './containers/Search';
+import Settings from './containers/Settings';
 import SignUp from './containers/SignUp';
 import NoMatch from './containers/NoMatch';
 
@@ -16,7 +17,7 @@ export default (
     <Route path="/login" component={Login} />
     <Route path="/search" component={Search} />
     <Route path="/signup" component={SignUp} />
-    <Route path="/settings" component={Login} />
+    <Route path="/settings" component={Settings} />
     <Route path="/:id" component={User} />
     <Route path="/:id/:meta" component={User} />
 

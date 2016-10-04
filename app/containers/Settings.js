@@ -1,9 +1,8 @@
 import React, { PropTypes } from 'react';
 import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
-import { Link, browserHistory } from 'react-router';
-import { signup } from '../actions/signup';
-import { logout } from '../actions/login';
+import { updateUser } from '../actions/settings';
+import NoMatch from '../containers/NoMatch';
 import ImageCropper from '../components/ImageCropper';
 import ButtonLoader from '../components/ButtonLoader';
 
@@ -12,7 +11,7 @@ let styles;
 export const SignUp = React.createClass({
 	propTypes: {
 		appData: PropTypes.object,
-		signupData: PropTypes.object,
+		settingsData: PropTypes.object,
 		loginData: PropTypes.object,
 		query: PropTypes.object,
 		dispatch: PropTypes.func,
@@ -31,16 +30,15 @@ export const SignUp = React.createClass({
 		};
 	},
 
-	componentWillReceiveProps(nextProps) {
-		// If there is a new ID in loginData, login was a sucess, so redirect
-		const oldID = this.props.appData.loginData.id;
-		const newID = nextProps.appData.loginData.id;
-		if (newID && oldID !== newID) {
-			// new ID exists and is not the same as oldusername
-			// const redirectRoute = this.props.query && this.props.query.redirect;
-			// this.props.dispatch(push(redirectRoute || '/'));
-			browserHistory.push('/');
-		}
+	componentWillMount() {
+		const initUserData = this.props.appData.loginData || {};
+		this.setState({
+			username: initUserData.username,
+			name: initUserData.name,
+			email: initUserData.email,
+			userImagePreview: initUserData.image,
+			apiToken: initUserData.apiToken,
+		});
 	},
 	
 	usernameChange: function(evt) {
@@ -82,47 +80,31 @@ export const SignUp = React.createClass({
 
 	handleSubmit: function(evt) {
 		evt.preventDefault();
-		if (!this.state.username) { return this.setState({ error: 'Username is required' }); }
-		if (!this.state.name) { return this.setState({ error: 'Name is required' }); }
-		if (!this.state.email) { return this.setState({ error: 'Email is required' }); }
-		if (!this.state.password) { return this.setState({ error: 'Password is required' }); }
-		if (!this.state.userImageURL) { return this.setState({ error: 'Profile image is required' }); }
+		if (!this.state.username) { return this.setState({ userUpdateError: 'Username is required' }); }
+		if (!this.state.name) { return this.setState({ userUpdateError: 'Name is required' }); }
+		if (!this.state.email) { return this.setState({ userUpdateError: 'Email is required' }); }
+		if (!this.state.password) { return this.setState({ userUpdateError: 'Password is required' }); }
+		if (!this.state.userImageURL) { return this.setState({ userUpdateError: 'Profile image is required' }); }
 
-		this.props.dispatch(signup(this.state.username, this.state.name, this.state.email, this.state.password, this.state.userImageURL));
-		return this.setState({ error: undefined });
-	},
-
-	handleLogout: function() {
-		this.props.dispatch(logout());
+		this.props.dispatch(updateUser(this.state.username, this.state.name, this.state.email, this.state.userImageURL));
+		return this.setState({ userUpdateError: undefined });
 	},
 
 	render() {
 		// const isLoading = this.props.signupData.loading; // this.props.appData && this.props.appData.get('loading');
-		const errorMessage = this.props.signupData.error || this.state.error;
-		const redirectRoute = null; // this.props.query && this.props.query.redirect;
-		const redirectQuery = ''; // redirectRoute ? '?redirect=' + redirectRoute : '';
+		// const errorMessage = this.props.settingsData.error || this.state.error;
 
 		const loginData = this.props.appData.loginData || {};
-		if (loginData.username) {
-			return (
-				<div>
-					<Helmet title={'Login · List of Links'} />
-					<h1>Already logged in</h1>
-					<p>You're alread logged in! If you'd like to sign up a new account, please first logout.</p>
-					<button className={'button'} style={styles.submitButton} onClick={this.handleLogout}>
-						Logout
-						<ButtonLoader isLoading={this.props.loginData.logoutLoading} />
-					</button>
-				</div>
-			);
+		if (!loginData.id) {
+			return <NoMatch />;
 		}
 
 		return (
 			<div>
-				<Helmet title={'Sign Up · List of Links'} />
+				<Helmet title={'Settings · List of Links'} />
 				
 
-				<h1>Sign Up</h1>
+				<h1>Settings</h1>
 
 				<form onSubmit={this.handleSubmit}>
 
@@ -142,11 +124,6 @@ export const SignUp = React.createClass({
 					</div>
 
 					<div>
-						<label style={styles.label} htmlFor={'password'}>Password</label>
-						<input id={'password'} name={'password'} type="password" style={styles.input} value={this.state.password} onChange={this.passwordChange} />
-					</div>
-
-					<div>
 						<label htmlFor={'userImage'}>
 							Profile Image
 						</label>
@@ -163,17 +140,42 @@ export const SignUp = React.createClass({
 					
 
 					<button name={'sign up'} className={'button'} style={styles.submitButton} onClick={this.handleSubmit}>
-						Sign Up
-						<ButtonLoader isLoading={this.props.signupData.loading} />
+						Update
+						<ButtonLoader isLoading={this.props.settingsData.userUpdateLoading} />
 					</button>
 
-					<div style={styles.errorMessage}>{errorMessage}</div>
+					<div style={styles.errorMessage}>{this.state.userUpdateError || this.props.settingsData.userUpdateError}</div>
 
 				</form>
 
-				<Link to={'/login' + redirectQuery} className={'link'}>
-					Have an Account? Click to Login.
-				</Link>
+				<h1>API Token</h1>
+
+					<input type="text" style={styles.disabledInput} disabled onChange={()=>{}} value={this.props.appData.loginData.apiToken} />
+					<button name={'apiToken'} className={'button'} style={styles.submitButton} onClick={this.handleResetAPIToken}>
+						Request new API token
+						<ButtonLoader isLoading={this.props.settingsData.userUpdateLoading} />
+					</button>
+
+
+				<h1>Reset Password</h1>
+					<form>
+						<div>
+							<label style={styles.label} htmlFor={'password'} style={styles.inputLabelWide}>Current Password</label>
+							<input id={'password'} name={'password'} type="password" value={this.state.password} onChange={this.passwordChange} />
+						</div>	
+
+						<div>
+							<label style={styles.label} htmlFor={'password'} style={styles.inputLabelWide}>New Password</label>
+							<input id={'password'} name={'password'} type="password" value={this.state.password} onChange={this.passwordChange} />
+						</div>	
+
+						<button name={'apiToken'} className={'button'} style={styles.submitButton} onClick={this.handleResetAPIToken}>
+							Set new Password
+							<ButtonLoader isLoading={this.props.settingsData.userUpdateLoading} />
+						</button>
+					</form>
+					
+
 
 			</div>
 
@@ -184,7 +186,7 @@ export const SignUp = React.createClass({
 function mapStateToProps(state) {
 	return {
 		appData: state.app,
-		signupData: state.signup,
+		settingsData: state.settings,
 		loginData: state.login,
 	};
 }
@@ -192,6 +194,9 @@ function mapStateToProps(state) {
 export default connect(mapStateToProps)(SignUp);
 
 styles = {
+	inputLabelWide: {
+		width: '150px',
+	},
 	submitButton: {
 		fontSize: '0.85em',
 		padding: '.5em 1em',
@@ -210,5 +215,11 @@ styles = {
 		position: 'relative',
 		top: '2px',
 		color: '#E05151',
+	},
+	disabledInput: {
+		display: 'block',
+		padding: '.25em 1em',
+		backgroundColor: 'transparent',
+		fontSize: '1em',
 	},
 };

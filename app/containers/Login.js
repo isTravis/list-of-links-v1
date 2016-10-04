@@ -35,7 +35,7 @@ export const Login = React.createClass({
 	},
 
 	usernameChange: function(evt) {
-		this.setState({ username: evt.target.value.toLowerCase() });
+		this.setState({ username: evt.target.value.toLowerCase().trim() });
 	},
 	passwordChange: function(evt) {
 		this.setState({ password: evt.target.value });
