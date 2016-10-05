@@ -97,7 +97,7 @@ export const User = React.createClass({
 		}, false);
 
 
-		if (!user || (meta && meta !== 'followers' && meta !== 'following')) {
+		if (!user.id || (meta && meta !== 'followers' && meta !== 'following')) {
 			return <NoMatch />;
 		}
 
