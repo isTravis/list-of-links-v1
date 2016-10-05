@@ -32,6 +32,7 @@ export const Root = React.createClass({
 				<head>
 					<meta charSet="utf-8" />
 					<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+					<meta name="google-site-verification" content="s8F1PnVMuOT2D-UM6acNzl2thVY_e5s_-Uc83bj27KY" />
 					<link rel="shortcut icon" href="/static/favicon.ico" />
 					{cssString}
 					{head.title.toComponent()}
