@@ -96,18 +96,13 @@ export const User = React.createClass({
 			return false || previousVal;
 		}, false);
 
-
-		
-
-		if (!this.props.userData.loading && !user.id || (meta && meta !== 'followers' && meta !== 'following')) {
-			return <NoMatch />;
-		}
-
-		if (!user.id) {
+		if (this.props.userData.loading) {
 			return <Loader />;
 		}
 
-		
+		if (!user.id || (meta && meta !== 'followers' && meta !== 'following')) {
+			return <NoMatch />;
+		}
 
 		return (
 			<div>

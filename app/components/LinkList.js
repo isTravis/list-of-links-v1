@@ -77,15 +77,22 @@ export const LinkList = React.createClass({
 		this.setState({ activeDelete: undefined });
 	},
 
+	// getDateString: function(date) {
+	// 	const thisday = new Date(date);
+	// 	const fullYear = thisday.getFullYear();
+	// 	const day = ('0' + thisday.getDate()).slice(-2);
+	// 	const month = ('0' + (thisday.getMonth() + 1)).slice(-2);
+	// 	const dateString = fullYear + month + day;
+	// 	return dateString;
+	// },
 	render: function() {
 		const links = this.props.links || [];
 		
 		const byDay = {};
 		links.map((value) => {
-			let thisday = new Date(value.createdAt);
-			thisday = Math.floor(thisday.getTime() / (1000 * 60 * 60 * 24));
-			byDay[thisday] = byDay[thisday] || [];
-			byDay[thisday].push(value);
+			const dateString = this.buildDateString(new Date(value.createdAt));
+			byDay[dateString] = byDay[dateString] || [];
+			byDay[dateString].push(value);
 		});
 		return (
 			<div>
