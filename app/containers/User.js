@@ -107,7 +107,23 @@ export const User = React.createClass({
 
 		return (
 			<div>
-				<Helmet title={user.name || this.props.params.id} />
+				<Helmet 
+					title={user.name || this.props.params.id} 
+					meta={[
+						{ property: 'og:title', content: user.name || this.props.params.id },
+						{ property: 'og:type', content: 'website' },
+						{ property: 'og:description', content: 'List of Links by ' + user.name || this.props.params.id },
+						{ property: 'og:url', content: 'https://www.listoflinks.co/' + this.props.params.id },
+						{ property: 'og:image', content: user.image },
+						{ property: 'og:image:url', content: user.image },
+						{ property: 'og:image:width', content: '500' },
+						{ name: 'twitter:card', content: 'summary' },
+						{ name: 'twitter:site', content: '@listoflinks' },
+						{ name: 'twitter:title', content: user.name || this.props.params.id },
+						{ name: 'twitter:description', content: 'List of Links by ' + user.name || this.props.params.id },
+						{ name: 'twitter:image', content: user.image },
+						{ name: 'twitter:image:alt', content: 'Preview image for ' + user.name || this.props.params.id }
+					]} />
 				
 				<div style={styles.header} className={'user-header'}>
 					<div style={styles.imageWrapper}>
