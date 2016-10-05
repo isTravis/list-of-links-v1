@@ -12,28 +12,34 @@ export const InputHeader = React.createClass({
 		isLoading: PropTypes.bool,
 		error: PropTypes.string,
 		handleAddLink: PropTypes.func,
+		handleLinkEdit: PropTypes.func,
+		handleLinkDelete: PropTypes.func,
 	},
 
+	// componentWillMount() {
+	// 	this.setState({});
+	// },
 	componentWillReceiveProps(nextProps) {
 		const addedLink = this.props.addedLink || {};
 		const nextAddedLink = nextProps.addedLink || {};
 		if (addedLink.id !== nextAddedLink.id && nextAddedLink.id) {
 			
-			const newAddedLinks = this.state.addedLinks;
-			newAddedLinks.push(nextAddedLink);
+			// const newAddedLinks = this.state.addedLinks;
+			// newAddedLinks.push(nextAddedLink);
 			this.setState({
 				description: '',
 				url: '',
-				addedLinks: newAddedLinks,
+				// addedLinks: newAddedLinks,
 			});
 		}
 	},
 
 	getInitialState() {
 		return {
+			mountTime: new Date().toISOString(),
 			description: '',
 			url: '',
-			addedLinks: [],
+			// addedLinks: [],
 			error: undefined,
 		};
 	},
@@ -64,6 +70,9 @@ export const InputHeader = React.createClass({
 
 	render: function() {
 		const user = this.props.loginData;
+		const justAddedLinks = this.props.loginData.links.filter((link)=> {
+			return link.createdAt > this.state.mountTime;
+		});
 
 		return (
 			<div>
@@ -82,10 +91,10 @@ export const InputHeader = React.createClass({
 					</form>
 				</div>
 				<div style={styles.errorMessage}>{this.props.error || this.state.error}</div>
-				{!!this.state.addedLinks.length &&
+				{!!justAddedLinks.length &&
 					<div>
 						<div style={styles.justAdded}>Just Added</div>
-						<LinkList links={this.state.addedLinks} hideDays={true} />	
+						<LinkList links={justAddedLinks} hideDays={true} handleLinkEdit={this.props.handleLinkEdit} handleLinkDelete={this.props.handleLinkDelete} />
 					</div>
 				}
 				

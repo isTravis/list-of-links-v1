@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 import InputHeader from '../components/InputHeader';
 import UserPreview from '../components/UserPreview';
 
-import { createLink } from '../actions/link';
+import { createLink, editLink, destroyLink } from '../actions/link';
 import { createFollow, destroyFollow } from '../actions/follow';
 
 let styles;
@@ -43,6 +43,14 @@ export const Landing = React.createClass({
 		this.props.dispatch(createLink(description, link));
 	},
 
+	handleLinkEdit: function(linkID, description, url) {
+		this.props.dispatch(editLink(linkID, description, url));
+	},
+
+	handleLinkDelete: function(linkID) {
+		this.props.dispatch(destroyLink(linkID));
+	},
+
 	calculateLinkCount: function(user) {
 		const lastRead = (user.Follow && user.Follow.lastRead) || new Date(1970).toISOString();
 		return user.links.reduce((previousVal, current) => {
@@ -73,7 +81,7 @@ export const Landing = React.createClass({
 		return (
 			<div style={styles.container}>
 				{user.id
-					? <InputHeader loginData={this.props.appData.loginData} handleAddLink={this.addLink} addedLink={this.props.linkData.addedLink} isLoading={this.props.linkData.loading} error={this.props.linkData.error} />
+					? <InputHeader loginData={this.props.appData.loginData} handleAddLink={this.addLink} handleLinkEdit={this.handleLinkEdit} handleLinkDelete={this.handleLinkDelete} addedLink={this.props.linkData.addedLink} isLoading={this.props.linkData.loading} error={this.props.linkData.error} />
 					: <div>
 						<div style={styles.topHeader}>
 							<h1 style={styles.topHeaderTitle}>List of Links</h1>
