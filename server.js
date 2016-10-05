@@ -33,6 +33,7 @@ process.on('unhandledRejection', (reason, p) => {
 });
 
 server.use('/favicon.ico', express.static(path.resolve(__dirname, 'static/favicon.ico')));
+server.use('/robots.txt', express.static(path.resolve(__dirname, 'static/robots.txt')));
 server.use(express.static(path.resolve(__dirname, 'dist')));
 server.use('/static', express.static(path.resolve(__dirname, 'static')));
 
