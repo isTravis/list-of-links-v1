@@ -83,14 +83,14 @@ export const Landing = React.createClass({
 						</div>
 						
 						<div style={styles.about}>
-							<h2 style={styles.sectionHeader}>Pull over Push</h2>
-							<p>Whereas feeds scatter your attention across an entire network of people, List of Links lets you to focus on a certain person, their perspective, and what they've links they've been sharing. </p>
-							
 							<h2 style={styles.sectionHeader}>Function over Fluff</h2>
-							<p>Committed to an ad-free, socially sane, and functionally useful internet. List of Links features no follower counts, no likes, no phony social games to play. If you're excited or interested about someone's links you should email them, call them, mention it next time you see them in person. You don't need another messaging platform. </p>
+							<p>Committed to an ad-free, socially sane, and functionally useful internet, List of Links features no follower counts, no likes, no contrived social games to play.</p>
+
+							<h2 style={styles.sectionHeader}>Pull over Push</h2>
+							<p>List of Links avoids scattering your attention with a feed and instead encourages you to focus on a certain person, their perspective, and what links they've been sharing. </p>
 							
 							<h2 style={styles.sectionHeader}>Open</h2>
-							<p>The projet is <a href={'https://github.com/isTravis/list-of-links'}>open source</a> and contributions, bug reports, feature requests, etc are welcome! List of Links supports a full API, browser extensions, desktop tools, visualization tools are welcome.</p>
+							<p>The project is <a href={'https://github.com/isTravis/list-of-links'}>open source</a> and contributions, bug reports, and feature requests are welcome! List of Links provides an <a href={'http://docs.listoflinks.co'}>API</a> enabling you to build browser extensions, desktop clients, or visualization tools.</p>
 						</div>
 						
 
