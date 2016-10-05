@@ -69,8 +69,9 @@ export const InputHeader = React.createClass({
 	},
 
 	render: function() {
-		const user = this.props.loginData;
-		const justAddedLinks = this.props.loginData.links.filter((link)=> {
+		const user = this.props.loginData || {};
+		const links = user.links || [];
+		const justAddedLinks = links.filter((link)=> {
 			return link.createdAt > this.state.mountTime;
 		});
 

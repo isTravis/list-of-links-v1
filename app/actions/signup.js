@@ -24,6 +24,7 @@ export function signup(username, name, email, password, image) {
 			dispatch({ type: SIGNUP_SUCCESS, result });
 		})
 		.catch((error) => {
+			console.log(error);
 			dispatch({ type: SIGNUP_FAIL, error });
 		});
 	};
