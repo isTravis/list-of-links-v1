@@ -87,7 +87,7 @@ export const Landing = React.createClass({
 							<h1 style={styles.topHeaderTitle}>List of Links</h1>
 							<p style={styles.topHeaderText}>A simple tool for collecting and sharing a list of links</p>
 
-							<p><button className={'button'} style={styles.button}><Link to={'/login'} className={'link'}>Login</Link></button> <span style={styles.separator}>or</span> <button className={'button'} style={styles.button}><Link to={'/signup'} className={'link'}>Sign up</Link></button></p>
+							<p><Link to={'/login'} className={'link'}><button className={'button'} style={styles.button}>Login</button></Link> <span style={styles.separator}>or</span> <Link to={'/signup'} className={'link'}><button className={'button'} style={styles.button}>Sign up</button></Link></p>
 						</div>
 						
 						<div style={styles.about}>
