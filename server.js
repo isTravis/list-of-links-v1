@@ -32,13 +32,7 @@ process.on('unhandledRejection', (reason, p) => {
 	}
 });
 
-// Short-circuit the browser's annoying favicon request. You can still
-// specify one as long as it doesn't have this exact name and path.
-server.get('/favicon.ico', function(req, res) {
-	res.writeHead(200, { 'Content-Type': 'image/x-icon' });
-	res.end();
-});
-
+server.use('/favicon.ico', express.static(path.resolve(__dirname, 'static/favicon.ico')));
 server.use(express.static(path.resolve(__dirname, 'dist')));
 server.use('/static', express.static(path.resolve(__dirname, 'static')));
 
