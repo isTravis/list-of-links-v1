@@ -103,6 +103,19 @@ input[type=file], input[type=file]:focus {
 	-webkit-user-select: text;
 }
 
+.down-arrow {
+	display: inline-block;
+	width: 0;
+	height: 0;
+	vertical-align: middle;
+	margin-top: 4px;
+	content: "";
+	border: 4px solid;
+	border-right-color: transparent;
+	border-bottom-color: transparent;
+	border-left-color: transparent;
+}
+
 @media screen and (min-resolution: 3dppx), screen and (max-width: 767px) {
 	.hide-on-mobile {
 		display: none !important;

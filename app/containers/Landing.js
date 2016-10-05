@@ -54,11 +54,13 @@ export const Landing = React.createClass({
 	},
 
 	handleFollowCreate: function(followeeID) {
-		this.props.dispatch(createFollow(followeeID, undefined));
+		const follower = this.props.appData.loginData.id;
+		this.props.dispatch(createFollow(follower, followeeID, undefined));
 	},
 
 	handleFollowDestroy: function(followeeID) {
-		this.props.dispatch(destroyFollow(followeeID));
+		const follower = this.props.appData.loginData.id;
+		this.props.dispatch(destroyFollow(follower, followeeID));
 	},
 
 	render() {
@@ -71,14 +73,30 @@ export const Landing = React.createClass({
 		return (
 			<div style={styles.container}>
 				{user.id
-					? <InputHeader loginData={this.props.appData.loginData} handleAddLink={this.addLink} isLoading={this.props.linkData.loading} />
+					? <InputHeader loginData={this.props.appData.loginData} handleAddLink={this.addLink} addedLink={this.props.linkData.addedLink} isLoading={this.props.linkData.loading} error={this.props.linkData.error} />
 					: <div>
-						<h1>List of Links</h1>
-						<p>A simple tool for collecting and sharing a list of links</p>
+						<div style={styles.topHeader}>
+							<h1 style={styles.topHeaderTitle}>List of Links</h1>
+							<p style={styles.topHeaderText}>A simple tool for collecting and sharing a list of links</p>
 
-						<p><Link to={'/login'} className={'link'}>Login</Link> or <Link to={'/signup'} className={'link'}>Sign up</Link></p>
+							<p><button className={'button'} style={styles.button}><Link to={'/login'} className={'link'}>Login</Link></button> <span style={styles.separator}>or</span> <button className={'button'} style={styles.button}><Link to={'/signup'} className={'link'}>Sign up</Link></button></p>
+						</div>
 						
-						<div className={'previews-container'}>
+						<div style={styles.about}>
+							<h2 style={styles.sectionHeader}>Pull over Push</h2>
+							<p>Whereas feeds scatter your attention across an entire network of people, List of Links lets you to focus on a certain person, their perspective, and what they've links they've been sharing. </p>
+							
+							<h2 style={styles.sectionHeader}>Function over Fluff</h2>
+							<p>Committed to an ad-free, socially sane, and functionally useful internet. List of Links features no follower counts, no likes, no phony social games to play. If you're excited or interested about someone's links you should email them, call them, mention it next time you see them in person. You don't need another messaging platform. </p>
+							
+							<h2 style={styles.sectionHeader}>Open</h2>
+							<p>The projet is <a href={'https://github.com/isTravis/list-of-links'}>open source</a> and contributions, bug reports, feature requests, etc are welcome! List of Links supports a full API, browser extensions, desktop tools, visualization tools are welcome.</p>
+						</div>
+						
+
+						<h2 style={styles.sectionHeader}>Explore</h2>
+						
+						<div className={'previews-container'} style={styles.defaultPreviews}>
 							{this.state.recentUsers.map((recentUser, index)=> {
 								return (
 									<UserPreview 
@@ -155,6 +173,37 @@ styles = {
 	},
 	recentSection: {
 		borderTop: '1px solid #CCC',
+	},
+	topHeader: {
+		textAlign: 'center',
+		borderBottom: '1px solid #ccc',
+		padding: '2em 0em 3em',
+		margin: '0em 0em 3em',
+	},
+	topHeaderTitle: {
+		fontSize: '4em',
+		margin: '0em',
+	},
+	topHeaderText: {
+		margin: '0em',
+		padding: '0em 0em 2em',
+	},
+	about: {
+		lineHeight: '1.6em',
+	},
+	sectionHeader: {
+		margin: '1.5em 0em 0em',
+	},
+	defaultPreviews: {
+		paddingTop: '0em',
+	},
+	button: {
+		padding: '.5em 2em',
+		fontSize: '1em',
+		// marginRight: '1em',
+	},
+	separator: {
+		padding: '0em 2em',
 	},
 };
 

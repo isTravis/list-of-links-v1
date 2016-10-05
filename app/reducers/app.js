@@ -30,6 +30,11 @@ import {
 	DESTROY_FOLLOW_SUCCESS
 } from '../actions/follow';
 
+import {
+	USER_UPDATE_SUCCESS,
+	TOKEN_UPDATE_SUCCESS,
+} from '../actions/settings';
+
 const defaultState = {
 	loading: false,
 	error: undefined,
@@ -165,6 +170,26 @@ export default function reducer(state = defaultState, action) {
 		return {
 			...state,
 			recentUsers: action.result
+		};
+
+	case USER_UPDATE_SUCCESS:
+		return {
+			...state,
+			loginData: {
+				...loginData,
+				username: action.username,
+				name: action.name,
+				email: action.email,
+				image: action.image,
+			}
+		};
+	case TOKEN_UPDATE_SUCCESS:
+		return {
+			...state,
+			loginData: {
+				...loginData,
+				apiToken: action.result.apiToken,
+			}
 		};
 
 	default:

@@ -10,7 +10,7 @@ export const DESTROY_FOLLOW_LOAD = 'DESTROY_FOLLOW_LOAD';
 export const DESTROY_FOLLOW_SUCCESS = 'DESTROY_FOLLOW_SUCCESS';
 export const DESTROY_FOLLOW_FAIL = 'DESTROY_FOLLOW_FAIL';
 
-export function createFollow(followee, lastRead) {
+export function createFollow(follower, followee, lastRead) {
 	return (dispatch) => {
 		dispatch({ type: CREATE_FOLLOW_LOAD });
 
@@ -21,6 +21,7 @@ export function createFollow(followee, lastRead) {
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({
+				follower: follower,
 				followee: followee,
 				lastRead: lastRead,
 			})
@@ -35,11 +36,11 @@ export function createFollow(followee, lastRead) {
 	};
 }
 
-export function updateLastRead(followee) {
+export function updateLastRead(follower, followee) {
 	const lastRead = Date.now();
 
 	return (dispatch) => {
-		dispatch({ type: UPDATE_LASTREAD_LOAD, followee: followee, lastRead: lastRead });
+		dispatch({ type: UPDATE_LASTREAD_LOAD, follower: follower, followee: followee, lastRead: lastRead });
 
 		return clientFetch('/api/follow', {
 			method: 'PUT',
@@ -48,6 +49,7 @@ export function updateLastRead(followee) {
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({
+				follower: follower,
 				followee: followee,
 				lastRead: lastRead,
 			})
@@ -62,7 +64,7 @@ export function updateLastRead(followee) {
 	};
 }
 
-export function destroyFollow(followee) {
+export function destroyFollow(follower, followee) {
 	return (dispatch) => {
 		dispatch({ type: DESTROY_FOLLOW_LOAD });
 
@@ -73,11 +75,12 @@ export function destroyFollow(followee) {
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({
+				follower: follower,
 				followee: followee,
 			})
 		})
 		.then((result) => {
-			dispatch({ type: DESTROY_FOLLOW_SUCCESS, result, followee });
+			dispatch({ type: DESTROY_FOLLOW_SUCCESS, result, follower, followee });
 		})
 		.catch((error) => {
 			console.log(error);

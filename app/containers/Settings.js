@@ -1,7 +1,9 @@
 import React, { PropTypes } from 'react';
 import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
-import { updateUser } from '../actions/settings';
+import SHA3 from 'crypto-js/sha3';
+import encHex from 'crypto-js/enc-hex';
+import { updateUser, updateToken, updatePassword } from '../actions/settings';
 import NoMatch from '../containers/NoMatch';
 import ImageCropper from '../components/ImageCropper';
 import ButtonLoader from '../components/ButtonLoader';
@@ -22,11 +24,14 @@ export const SignUp = React.createClass({
 			username: '',
 			name: '',
 			email: '',
-			password: '',
 			userImageFile: null,
 			userImageURL: undefined,
 			userImagePreview: undefined,
-			error: undefined,
+			userUpdateError: undefined,
+
+			oldPassword: '',
+			newPassword: '',
+			passwordUpdateError: undefined,
 		};
 	},
 
@@ -37,8 +42,15 @@ export const SignUp = React.createClass({
 			name: initUserData.name,
 			email: initUserData.email,
 			userImagePreview: initUserData.image,
+			userImageURL: initUserData.image,
 			apiToken: initUserData.apiToken,
 		});
+	},
+
+	componentWillReceiveProps(nextProps) {
+		if (this.props.settingsData.passwordUpdateLoading && !nextProps.settingsData.passwordUpdateLoading && !nextProps.settingsData.passwordUpdateError) {
+			this.setState({ oldPassword: '', newPassword: '' });
+		}
 	},
 	
 	usernameChange: function(evt) {
@@ -51,10 +63,6 @@ export const SignUp = React.createClass({
 
 	emailChange: function(evt) {
 		this.setState({ email: evt.target.value });
-	},
-
-	passwordChange: function(evt) {
-		this.setState({ password: evt.target.value });
 	},
 
 	handleFileSelect: function(evt) {
@@ -78,17 +86,41 @@ export const SignUp = React.createClass({
 		
 	},
 
-	handleSubmit: function(evt) {
+	handleUserUpdate: function(evt) {
 		evt.preventDefault();
 		if (!this.state.username) { return this.setState({ userUpdateError: 'Username is required' }); }
 		if (!this.state.name) { return this.setState({ userUpdateError: 'Name is required' }); }
 		if (!this.state.email) { return this.setState({ userUpdateError: 'Email is required' }); }
-		if (!this.state.password) { return this.setState({ userUpdateError: 'Password is required' }); }
 		if (!this.state.userImageURL) { return this.setState({ userUpdateError: 'Profile image is required' }); }
 
 		this.props.dispatch(updateUser(this.state.username, this.state.name, this.state.email, this.state.userImageURL));
 		return this.setState({ userUpdateError: undefined });
 	},
+
+	handleResetAPIToken: function(evt) {
+		evt.preventDefault();
+		this.props.dispatch(updateToken());
+	},
+
+	oldPasswordChange: function(evt) {
+		this.setState({ oldPassword: evt.target.value });
+	},
+
+	newPasswordChange: function(evt) {
+		this.setState({ newPassword: evt.target.value });
+	},
+
+	handlePasswordUpdate: function(evt) {
+		evt.preventDefault();
+		if (!this.state.oldPassword) { return this.setState({ passwordUpdateError: 'Old password is required' }); }
+		if (!this.state.newPassword) { return this.setState({ passwordUpdateError: 'New password is required' }); }
+
+		const oldPassword = SHA3(this.state.oldPassword).toString(encHex);
+		const newPassword = SHA3(this.state.newPassword).toString(encHex);
+		this.props.dispatch(updatePassword(oldPassword, newPassword));
+		return this.setState({ passwordUpdateError: undefined });
+	},
+
 
 	render() {
 		// const isLoading = this.props.signupData.loading; // this.props.appData && this.props.appData.get('loading');
@@ -139,7 +171,7 @@ export const SignUp = React.createClass({
 					}
 					
 
-					<button name={'sign up'} className={'button'} style={styles.submitButton} onClick={this.handleSubmit}>
+					<button name={'sign up'} className={'button'} style={styles.submitButton} onClick={this.handleUserUpdate}>
 						Update
 						<ButtonLoader isLoading={this.props.settingsData.userUpdateLoading} />
 					</button>
@@ -148,35 +180,37 @@ export const SignUp = React.createClass({
 
 				</form>
 
-				<h1>API Token</h1>
 
-					<input type="text" style={styles.disabledInput} disabled onChange={()=>{}} value={this.props.appData.loginData.apiToken} />
-					<button name={'apiToken'} className={'button'} style={styles.submitButton} onClick={this.handleResetAPIToken}>
-						Request new API token
-						<ButtonLoader isLoading={this.props.settingsData.userUpdateLoading} />
+				<h1>Change Password</h1>
+				<form>
+					<div>
+						<label htmlFor={'password'} style={styles.inputLabelWide}>Current Password</label>
+						<input id={'password'} name={'password'} type="password" value={this.state.oldPassword} onChange={this.oldPasswordChange} />
+					</div>	
+
+					<div>
+						<label htmlFor={'password'} style={styles.inputLabelWide}>New Password</label>
+						<input id={'password'} name={'password'} type="password" value={this.state.newPassword} onChange={this.newPasswordChange} />
+					</div>	
+
+					<button name={'apiToken'} className={'button'} style={styles.submitButton} onClick={this.handlePasswordUpdate}>
+						Set new Password
+						<ButtonLoader isLoading={this.props.settingsData.passwordUpdateLoading} />
 					</button>
 
+					<div style={styles.errorMessage}>{this.state.passwordUpdateError || this.props.settingsData.passwordUpdateError}</div>
+				</form>
 
-				<h1>Reset Password</h1>
-					<form>
-						<div>
-							<label style={styles.label} htmlFor={'password'} style={styles.inputLabelWide}>Current Password</label>
-							<input id={'password'} name={'password'} type="password" value={this.state.password} onChange={this.passwordChange} />
-						</div>	
+				<h1>API Token</h1>
 
-						<div>
-							<label style={styles.label} htmlFor={'password'} style={styles.inputLabelWide}>New Password</label>
-							<input id={'password'} name={'password'} type="password" value={this.state.password} onChange={this.passwordChange} />
-						</div>	
+				<input type="text" style={styles.disabledInput} disabled onChange={()=>{}} value={this.props.appData.loginData.apiToken} />
+				<button name={'apiToken'} className={'button'} style={styles.submitButton} onClick={this.handleResetAPIToken}>
+					Request new API token
+					<ButtonLoader isLoading={this.props.settingsData.apiTokenLoading} />
+				</button>
 
-						<button name={'apiToken'} className={'button'} style={styles.submitButton} onClick={this.handleResetAPIToken}>
-							Set new Password
-							<ButtonLoader isLoading={this.props.settingsData.userUpdateLoading} />
-						</button>
-					</form>
-					
-
-
+				<div style={styles.errorMessage}>{this.props.settingsData.apiTokenError}</div>
+				
 			</div>
 
 		);

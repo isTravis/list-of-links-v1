@@ -50,8 +50,8 @@ export const User = React.createClass({
 			return followee.id;
 		});
 		if (!nextProps.userData.setLastRead && nextUserData.id && followingIDs.includes(nextUserData.id)) {
-			console.log(nextProps.userData);
-			this.props.dispatch(updateLastRead(nextProps.userData.userData.id));
+			const follower = nextProps.appData.loginData.id;
+			this.props.dispatch(updateLastRead(follower, nextProps.userData.userData.id));
 		}
 	},
 
@@ -59,13 +59,16 @@ export const User = React.createClass({
 		const loginData = this.props.appData.loginData || {};
 		if (!loginData.id) { return browserHistory.push('/login'); }
 
+		const follower = this.props.appData.loginData.id;
 		const followeeID = this.props.userData.userData.id;
-		this.props.dispatch(createFollow(followeeID, Date.now()));
+		return this.props.dispatch(createFollow(follower, followeeID, Date.now()));
 	},
 
 	handleFollowDestroy: function() {
 		const followeeID = this.props.userData.userData.id;
-		this.props.dispatch(destroyFollow(followeeID));
+		const follower = this.props.appData.loginData.id;
+
+		this.props.dispatch(destroyFollow(follower, followeeID));
 	},
 
 	handleLinkEdit: function(linkID, description, url) {

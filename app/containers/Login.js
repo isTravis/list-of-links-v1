@@ -2,6 +2,8 @@ import React, { PropTypes } from 'react';
 import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
 import { Link, browserHistory } from 'react-router';
+import SHA3 from 'crypto-js/sha3';
+import encHex from 'crypto-js/enc-hex';
 import { login, logout } from '../actions/login';
 import ButtonLoader from '../components/ButtonLoader';
 
@@ -44,7 +46,7 @@ export const Login = React.createClass({
 	handleSubmit: function(evt) {
 		evt.preventDefault();
 		// console.log(this.state.username, this.state.password);
-		this.props.dispatch(login(this.state.username, this.state.password));
+		this.props.dispatch(login(this.state.username, SHA3(this.state.password).toString(encHex)));
 	},
 
 	handleLogout: function() {

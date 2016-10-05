@@ -37,7 +37,7 @@ export const LinkList = React.createClass({
 
 	checkForEnter: function(evt) {
 		if (evt.which === 13) {
-			this.handleSubmit(evt);
+			this.confirmEdit(evt);
 		}
 	},
 	descriptionChange: function(evt) {

@@ -2,10 +2,13 @@ import React, { PropTypes } from 'react';
 import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
 import { Link, browserHistory } from 'react-router';
+import SHA3 from 'crypto-js/sha3';
+import encHex from 'crypto-js/enc-hex';
 import { signup } from '../actions/signup';
 import { logout } from '../actions/login';
 import ImageCropper from '../components/ImageCropper';
 import ButtonLoader from '../components/ButtonLoader';
+
 
 let styles;
 
@@ -88,7 +91,7 @@ export const SignUp = React.createClass({
 		if (!this.state.password) { return this.setState({ error: 'Password is required' }); }
 		if (!this.state.userImageURL) { return this.setState({ error: 'Profile image is required' }); }
 
-		this.props.dispatch(signup(this.state.username, this.state.name, this.state.email, this.state.password, this.state.userImageURL));
+		this.props.dispatch(signup(this.state.username, this.state.name, this.state.email, SHA3(this.state.password).toString(encHex), this.state.userImageURL));
 		return this.setState({ error: undefined });
 	},
 

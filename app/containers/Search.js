@@ -30,12 +30,14 @@ export const Search = React.createClass({
 	handleFollowCreate: function(followeeID) {
 		const loginData = this.props.appData.loginData || {};
 		if (!loginData.id) { return browserHistory.push('/login'); }
-
-		return this.props.dispatch(createFollow(followeeID, undefined));
+		
+		const follower = this.props.appData.loginData.id;
+		return this.props.dispatch(createFollow(follower, followeeID, undefined));
 	},
 
 	handleFollowDestroy: function(followeeID) {
-		this.props.dispatch(destroyFollow(followeeID));
+		const follower = this.props.appData.loginData.id;
+		this.props.dispatch(destroyFollow(follower, followeeID));
 	},
 
 	render() {

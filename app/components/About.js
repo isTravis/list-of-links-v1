@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 let styles;
 
@@ -7,11 +8,21 @@ export const About = React.createClass({
 	render() {
 		return (
 			<div style={styles.container}>
-				<h2>What is this?</h2>
-				<p>Well - clearly this is a place where I describe that.</p>
+				<h1>About List of Links</h1>
+				<p>A simple tool for collecting and sharing a list of links</p>
 
-				<h2>Put other questions here</h2>
-				<p>And answer them in this spot as well.</p>
+				<h2 style={styles.sectionHeader}>Pull over Push</h2>
+				<p>Whereas feeds scatter your attention across an entire network of people, List of Links lets you to focus on a certain person, their perspective, and what they've links they've been sharing. </p>
+				
+				<h2 style={styles.sectionHeader}>Function over Fluff</h2>
+				<p>Committed to an ad-free, socially sane, and functionally useful internet. List of Links features no follower counts, no likes, no phony social games to play. If you're excited or interested about someone's links you should email them, call them, mention it next time you see them in person. You don't need another messaging platform. </p>
+				
+				<h2 style={styles.sectionHeader}>Open</h2>
+				<p>The project is <a href={'https://github.com/isTravis/list-of-links'}>open source</a> and contributions, bug reports, feature requests, etc are welcome! List of Links supports a full API, browser extensions, desktop tools, visualization tools are welcome.</p>
+
+				<h2 style={styles.sectionHeader}>Inspiration</h2>
+				<p>List of Links is inspired and modeled after Jorn Barger's Robot Wisdom weblog.</p>
+				<img src="/static/jorn.png" alt="robot wisdom" width="100%"/>
 			</div>
 		);
 	}
@@ -22,7 +33,8 @@ export default About;
 
 styles = {
 	container: {
-		maxWidth: '500px',
+		maxWidth: '650px',
 		margin: '0 auto',
+		lineHeight: '1.6em'
 	},
 };

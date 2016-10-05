@@ -19,9 +19,10 @@ export const AppNav = React.createClass({
 
 				{user.id 
 					? <div className={'showChildOnHover'} style={styles.buttons}>
-						{user.name}
+						{user.name} <span className={'down-arrow'} />
 						<div className={'hoverChild'} style={styles.navMenu}>
 							<Link to={'/' + user.username} className={'underlineOnHover'} style={styles.navMenuItem}>Profile</Link>
+							<Link to={'/settings'} className={'underlineOnHover'} style={styles.navMenuItem}>Settings</Link>
 							<div className={'underlineOnHover'} style={styles.navMenuItem} onClick={this.props.handleLogout}>Logout</div>
 						</div>
 					</div>

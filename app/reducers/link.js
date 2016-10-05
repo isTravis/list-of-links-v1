@@ -7,6 +7,7 @@ import {
 const defaultState = {
 	loading: false,
 	error: undefined,
+	addedLink: undefined,
 };
 
 export default function reducer(state = defaultState, action) {
@@ -15,19 +16,22 @@ export default function reducer(state = defaultState, action) {
 	case CREATE_LINK_LOAD: 	
 		return {
 			loading: true,
-			error: undefined
+			error: undefined,
+			addedLink: undefined,
 		};
 
 	case CREATE_LINK_SUCCESS: 	
 		return {
 			loading: false,
-			error: undefined
+			error: undefined,
+			addedLink: action.result,
 		};
 
 	case CREATE_LINK_FAIL: 	
 		return {
 			loading: false,
-			error: action.error
+			error: action.error,
+			addedLink: undefined,
 		};
 
 	default:

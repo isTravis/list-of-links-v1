@@ -29,7 +29,6 @@ export function createLink(description, link) {
 			dispatch({ type: CREATE_LINK_SUCCESS, result });
 		})
 		.catch((error) => {
-			console.log(error);
 			dispatch({ type: CREATE_LINK_FAIL, error });
 		});
 	};

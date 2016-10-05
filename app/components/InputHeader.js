@@ -8,8 +8,25 @@ let styles;
 export const InputHeader = React.createClass({
 	propTypes: {
 		loginData: PropTypes.object,
+		addedLink: PropTypes.object,
 		isLoading: PropTypes.bool,
+		error: PropTypes.string,
 		handleAddLink: PropTypes.func,
+	},
+
+	componentWillReceiveProps(nextProps) {
+		const addedLink = this.props.addedLink || {};
+		const nextAddedLink = nextProps.addedLink || {};
+		if (addedLink.id !== nextAddedLink.id && nextAddedLink.id) {
+			
+			const newAddedLinks = this.state.addedLinks;
+			newAddedLinks.push(nextAddedLink);
+			this.setState({
+				description: '',
+				url: '',
+				addedLinks: newAddedLinks,
+			});
+		}
 	},
 
 	getInitialState() {
@@ -42,21 +59,7 @@ export const InputHeader = React.createClass({
 		if (!this.state.url) { return this.setState({ error: 'URL required' }); }
 
 		this.props.handleAddLink(this.state.description, this.state.url);
-		
-
-		const newAddedLinks = this.state.addedLinks;
-		newAddedLinks.push({
-			description: this.state.description,
-			url: this.state.url,
-			createdAt: new Date(),
-			updatedAt: new Date()
-		});
-		return this.setState({
-			description: '',
-			url: '',
-			addedLinks: newAddedLinks,
-			error: undefined,
-		});
+		return this.setState({ error: undefined });
 	},
 
 	render: function() {
@@ -78,7 +81,7 @@ export const InputHeader = React.createClass({
 						</button>
 					</form>
 				</div>
-				<div style={styles.errorMessage}>{this.state.error}</div>
+				<div style={styles.errorMessage}>{this.props.error || this.state.error}</div>
 				{!!this.state.addedLinks.length &&
 					<div>
 						<div style={styles.justAdded}>Just Added</div>

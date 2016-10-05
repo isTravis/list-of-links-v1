@@ -93,7 +93,7 @@ styles = {
 		lineHeight: '1em',
 		fontSize: '0.85em',
 		top: '-0.25em',
-		left: '150px',
+		right: '0.75em',
 		boxShadow: '0px 0px 20px white',
 	},
 	followButton: {
