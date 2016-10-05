@@ -41,14 +41,14 @@ export const App = React.createClass({
 						{ property: 'og:type', content: 'website' },
 						{ property: 'og:description', content: 'A simple tool for collecting and sharing a list of links' },
 						{ property: 'og:url', content: 'https://www.listoflinks.co/' },
-						{ property: 'og:image', content: 'https://www.listoflinks.co/static/logo.png' },
-						{ property: 'og:image:url', content: 'https://www.listoflinks.co/static/logo.png' },
+						{ property: 'og:image', content: 'https://www.listoflinks.co/static/logo_large.png' },
+						{ property: 'og:image:url', content: 'https://www.listoflinks.co/static/logo_large.png' },
 						{ property: 'og:image:width', content: '500' },
 						{ name: 'twitter:card', content: 'summary' },
 						{ name: 'twitter:site', content: '@listoflinks' },
 						{ name: 'twitter:title', content: 'List of Links' },
 						{ name: 'twitter:description', content: 'A simple tool for collecting and sharing a list of links' },
-						{ name: 'twitter:image', content: 'https://www.listoflinks.co/static/logo.png' },
+						{ name: 'twitter:image', content: 'https://www.listoflinks.co/static/logo_large.png' },
 						{ name: 'twitter:image:alt', content: 'Logo for List of Links' }
 					]} />
 				<AppNav loginData={this.props.appData.loginData} handleLogout={this.handleLogout} />
