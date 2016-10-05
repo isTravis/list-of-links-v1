@@ -33,7 +33,11 @@ export const App = React.createClass({
 	render() {
 		return (
 			<div>
-				<Helmet title="List of Links" />
+				<Helmet 
+					title="List of Links"  
+					meta={[
+						{ name: 'description', content: 'A simple tool for collecting and sharing a list of links' },
+	                ]} />
 				<AppNav loginData={this.props.appData.loginData} handleLogout={this.handleLogout} />
 				<div style={{ minHeight: 'calc(100vh - 75px)' }}>{this.props.children}</div>
 				<AppFooter />
